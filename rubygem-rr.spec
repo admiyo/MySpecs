@@ -1,0 +1,52 @@
+# Generated from rr-0.10.11.gem by gem2rpm -*- rpm-spec -*-
+%define ruby_sitelib %(ruby -rrbconfig -e "puts Config::CONFIG['sitelibdir']")
+%define gemdir %(ruby -rubygems -e 'puts Gem::dir' 2>/dev/null)
+%define gemname rr
+%define geminstdir %{gemdir}/gems/%{gemname}-%{version}
+
+Summary: RR (Double Ruby) is a double framework that features a rich selection of double techniques and a terse syntax. http://xunitpatterns.com/Test%20Double.html
+Name: rubygem-%{gemname}
+Version: 0.10.11
+Release: 1%{?dist}
+Group: Development/Languages
+License: GPLv2+ or Ruby
+URL: http://pivotallabs.com
+Source0: http://rubygems.org/gems/%{gemname}-%{version}.gem
+BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+Requires: rubygems
+BuildRequires: rubygems
+BuildArch: noarch
+Provides: rubygem(%{gemname}) = %{version}
+
+%description
+RR (Double Ruby) is a double framework that features a rich selection of
+double techniques and a terse syntax.
+http://xunitpatterns.com/Test%20Double.html
+
+
+%prep
+
+%build
+
+%install
+rm -rf %{buildroot}
+mkdir -p %{buildroot}%{gemdir}
+gem install --local --install-dir %{buildroot}%{gemdir} \
+            --force --rdoc %{SOURCE0}
+
+%clean
+rm -rf %{buildroot}
+
+%files
+%defattr(-, root, root, -)
+%{gemdir}/gems/%{gemname}-%{version}/
+%doc %{gemdir}/doc/%{gemname}-%{version}
+%doc %{geminstdir}/CHANGES
+%doc %{geminstdir}/README.rdoc
+%{gemdir}/cache/%{gemname}-%{version}.gem
+%{gemdir}/specifications/%{gemname}-%{version}.gemspec
+
+
+%changelog
+* Wed Mar 31 2010 Adam Young <ayoung@ayoung.boston.devel.redhat.com> - 0.10.11-1
+- Initial package
