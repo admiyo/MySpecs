@@ -1,0 +1,4 @@
+This is a set of SPEC files for several projects, including Buildr support, Maven Support, and Candlepin.  They don't really havea place to live just yet, so they've decided to embracve a bohemian lifestyle and co-habitate in this repo.  
+
+The rubygem specfiles were initially genereated with gem2rpm, and the Java ones were primed from pom2rpm.  Some have been hand tweaked.
+
