@@ -1,24 +1,24 @@
-Name:      stax-api
-Version:   1.0.1
+Name:      cglib
+Version:   2.2
 Release:        2%{?dist}
-Summary:       methods for iterative, event-based processing of XML documents. 
+Summary:        Code Generation Library used to extend JAVA classes and implements interfaces at runtime.
 
 Group:         Development/Java
-License:        GPL
-URL:            http://dist.codehaus.org/stax/distributions/
-Source0:        stax-src-1.2.0.zip
+License:        ASF 2.0
+URL:            http://cglib.sourceforge.net/
+Source0:        cglib-2.2-sources.jar
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
-BuildRequires: ant
 BuildRequires: java-devel  
 BuildRequires:  jpackage-utils
 BuildArch: noarch
 Requires:  java >= 1.5
 Requires:  jpackage-utils
+Requires: objectweb-asm = 3.1
+Requires: ant >= 1.6.2
 
 %description
-The StAX API exposes methods for iterative, event-based processing of XML documents. XML documents are treated as a filtered series of events, and infoset states can be stored in a procedural fashion. Moreover, unlike SAX, the StAX API is bidirectional, enabling both reading and writing of XML documents. 
-
+Code Generation Library used to extend JAVA classes and implements interfaces at runtime.
 %package javadoc
 Summary:        Javadocs for %{name}
 Group:          Development/Documentation
@@ -30,19 +30,25 @@ This package contains the API documentation for %{name}.
 
 %prep
 %setup -cT
+mkdir src javadoc classes
+pushd src
 jar -xf %{SOURCE0}
+popd
 
 %build
-ant all javadoc
+javac -d classes -cp src/:%{_javadir}/objectweb-asm/asm-all.jar:%{_javadir}/ant.jar `find . -name *.java` 
+javadoc -d javadoc -classpath src:%{_javadir}/objectweb-asm/asm-all.jar:%{_javadir}/ant.jar  $(for JAVA in `find src/ -name *.java` ; do  dirname $JAVA ; done | sort -u  | sed -e 's!src.!!'  -e 's!/!.!g'  )
+find classes -name *.class | sed -e  's!classes/!!g' -e 's!^! -C classes !'  | xargs jar cfm cglib-2.2.jar ./src/META-INF/MANIFEST.MF
 
 
 %install
 #rm -rf $RPM_BUILD_ROOT
 mkdir -p $RPM_BUILD_ROOT
 install -m 755 -d $RPM_BUILD_ROOT%{_javadir}
-install -m 755    build/stax-api-%{version}.jar  $RPM_BUILD_ROOT%{_javadir} 
+install -m 755 %{name}-%{version}.jar $RPM_BUILD_ROOT%{_javadir}
+ln -s %{_javadir}/%{name}-%{version}.jar $RPM_BUILD_ROOT%{_javadir}/%{name}.jar
 install -m 755 -d $RPM_BUILD_ROOT%{_javadocdir}/%{name}
-cp -rp build/javadoc/*  $RPM_BUILD_ROOT%{_javadocdir}/%{name}
+cp -rp javadoc/*  $RPM_BUILD_ROOT%{_javadocdir}/%{name}
 
 %add_to_maven_depmap org.apache.maven %{name} %{version} JPP %{name}
 
@@ -59,8 +65,9 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root,-)
-%{_javadir}/stax-api-%{version}.jar
 /etc/maven/fragments/%{name}
+%{_javadir}/%{name}-%{version}.jar
+%{_javadir}/%{name}.jar
 %doc
 %files javadoc
 %defattr(-,root,root,-)
