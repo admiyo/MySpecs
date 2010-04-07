@@ -1,6 +1,6 @@
 Name:      stax-api
 Version:   1.0.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:       methods for iterative, event-based processing of XML documents. 
 
 Group:         Development/Java
@@ -22,7 +22,7 @@ The StAX API exposes methods for iterative, event-based processing of XML docume
 %package javadoc
 Summary:        Javadocs for %{name}
 Group:          Development/Documentation
-Requires:       %{name}-%{version}-%{release}
+Requires:       %{name} = %{version}-%{release}
 Requires:       jpackage-utils
 
 %description javadoc

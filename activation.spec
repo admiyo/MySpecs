@@ -1,7 +1,7 @@
 Name:      activation
 Version:   1.1
-Release:        1%{?dist}
-Summary:        standard extension to the Java platform that lets you: determine the type of an arbitrary piece of data; encapsulate access to it; discover the operations available on it; and instantiate the appropriate bean to perform the operation(s).
+Release:        2%{?dist}
+Summary:  JavaBeans Activation Framework (JAF) is a standard extension to the Java platform that lets you take advantage of standard services to: determine the type of an arbitrary piece of data; encapsulate access to it; discover the operations available on it; and instantiate the appropriate bean to perform the operation(s).
    
 
 Group:         Development/Java
@@ -19,8 +19,10 @@ Requires:  jpackage-utils
 %description
 %package javadoc
 Summary:        Javadocs for %{name}
+
+
 Group:          Development/Documentation
-Requires:       %{name}-%{version}-%{release}
+Requires:       %{name} = %{version}-%{release}
 Requires:       jpackage-utils
 
 %description javadoc
@@ -46,12 +48,23 @@ install -m 755 -d $RPM_BUILD_ROOT%{_javadir}
 install -m 755    activation-1.1.jar  $RPM_BUILD_ROOT%{_javadir} 
 install -m 755 -d $RPM_BUILD_ROOT%{_javadocdir}/%{name}
 cp -rp javadocs/*  $RPM_BUILD_ROOT%{_javadocdir}/%{name}
+
+%add_to_maven_depmap org.apache.maven %{name} %{version} JPP %{name}
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 
+%post
+%update_maven_depmap
+
+%postun
+%update_maven_depmap
+
+
 %files
 %defattr(-,root,root,-)
+/etc/maven/fragments/%{name}
 %{_javadir}/activation-1.1.jar
 %doc
 %files javadoc
