@@ -1,35 +1,25 @@
-Name:      resteasy-guice
-Version:    1.2.1.GA
+Name:      jaxb-impl
+Version:   2.1.6
 Release:        3%{?dist}
-Summary:     RESTEasy integration with Guice   
+Summary:        JAXB implementation from Sun
 
 Group:         Development/Java
 License:        GPL
-URL:            http://www.jboss.org/resteasy
+URL:            https://jaxb2-sources.dev.java.net/
 Source0:        %{name}-%{version}-sources.jar
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildArch: noarch
-
 BuildRequires: java-devel  
 BuildRequires:  jpackage-utils
-BuildRequires: guice = 2.0
-BuildRequires: resteasy-jaxrs = %{version}
-BuildRequires: junit
-BuildRequires: servletapi5
-BuildRequires: junit
-BuildRequires: jsr311-api 
-
+BuildRequires: FastInfoset
+BuildRequires: stax-ex
 
 Requires:  java >= 1.5
 Requires:  jpackage-utils
-Requires: guice >= 2.0
-Requires: resteasy-jaxrs = %{version}
-Requires: servletapi5
-Requires: jsr311-api 
-
+Requires:  FastInfoset
+Requires:  stax-ex
 %description
-RESTEasy has some simple integration with Guice 1.0. RESTEasy will scan the binding types for a Guice Module for @Path and @Provider annotations. It will register these bindings with RESTEasy. The guice-hello project that comes in the RESTEasy examples/ directory gives a nice example of this
 
 %package javadoc
 Summary:        Javadocs for %{name}
@@ -48,8 +38,8 @@ jar -xf %{SOURCE0}
 popd
 
 %build
-classpath=src/:%{_javadir}/guice.jar:%{_javadir}/resteasy-jaxrs.jar:%{_javadir}/junit.jar:%{_javadir}/servletapi5.jar:%{_javadir}/jsr311-api.jar:%{_javadir}/slf4j/api.jar
-javac -d classes -cp $classpath   `find . -name *.java` 
+classpath=src/:%{_javadir}/FastInfoset.jar:%{_javadir}/stax-ex.jar
+javac -d classes -cp $classpath  `find . -name *.java` 
 javadoc -d javadoc -classpath $classpath  $(for JAVA in `find src/ -name *.java` ; do  dirname $JAVA ; done | sort -u  | sed -e 's!src.!!'  -e 's!/!.!g'  )
 find classes -name *.class | sed -e  's!classes/!!g' -e 's!^! -C classes !'  | xargs jar cfm %{name}-%{version}.jar ./src/META-INF/MANIFEST.MF
 

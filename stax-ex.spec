@@ -1,36 +1,27 @@
-Name:      resteasy-guice
-Version:    1.2.1.GA
-Release:        3%{?dist}
-Summary:     RESTEasy integration with Guice   
+Name:      stax-ex
+Version:   1.2
+Release:        2%{?dist}
+Summary:       Extended StAX API 
 
 Group:         Development/Java
-License:        GPL
-URL:            http://www.jboss.org/resteasy
+License:        Common Development And Distribution License (CDDL) Version 1.0
+URL:            https://stax-ex.dev.java.net/
 Source0:        %{name}-%{version}-sources.jar
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
-BuildArch: noarch
-
 BuildRequires: java-devel  
 BuildRequires:  jpackage-utils
-BuildRequires: guice = 2.0
-BuildRequires: resteasy-jaxrs = %{version}
-BuildRequires: junit
-BuildRequires: servletapi5
-BuildRequires: junit
-BuildRequires: jsr311-api 
-
-
+BuildArch: noarch
+BuildRequires: stax-api >= 1.0
+BuildRequires: activation >= 1.1
+BuildRequires: junit >= 3.8
 Requires:  java >= 1.5
 Requires:  jpackage-utils
-Requires: guice >= 2.0
-Requires: resteasy-jaxrs = %{version}
-Requires: servletapi5
-Requires: jsr311-api 
+Requires: stax-api >= 1.0
+Requires: activation >= 1.1
+Requires: junit >= 3.8
 
 %description
-RESTEasy has some simple integration with Guice 1.0. RESTEasy will scan the binding types for a Guice Module for @Path and @Provider annotations. It will register these bindings with RESTEasy. The guice-hello project that comes in the RESTEasy examples/ directory gives a nice example of this
-
 %package javadoc
 Summary:        Javadocs for %{name}
 Group:          Development/Documentation
@@ -48,8 +39,8 @@ jar -xf %{SOURCE0}
 popd
 
 %build
-classpath=src/:%{_javadir}/guice.jar:%{_javadir}/resteasy-jaxrs.jar:%{_javadir}/junit.jar:%{_javadir}/servletapi5.jar:%{_javadir}/jsr311-api.jar:%{_javadir}/slf4j/api.jar
-javac -d classes -cp $classpath   `find . -name *.java` 
+classpath=src/:%{_javadir}/stax-api.jar:%{_javadir}/activation.jar:%{_javadir}/junit.jar
+javac -d classes -cp $classpath  `find . -name *.java` 
 javadoc -d javadoc -classpath $classpath  $(for JAVA in `find src/ -name *.java` ; do  dirname $JAVA ; done | sort -u  | sed -e 's!src.!!'  -e 's!/!.!g'  )
 find classes -name *.class | sed -e  's!classes/!!g' -e 's!^! -C classes !'  | xargs jar cfm %{name}-%{version}.jar ./src/META-INF/MANIFEST.MF
 
