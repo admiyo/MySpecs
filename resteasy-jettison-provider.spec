@@ -1,30 +1,31 @@
-Name:      resteasy-jaxb-provider
+Name:      resteasy-jettison-provider
 Version:   1.2.1.GA
 Release:        2%{?dist}
-Summary:       Resteasy JAXB Provider 
+Summary:       Resteasy Jettison Provider 
 
 Group:         Development/Java
 License:        GPL
-URL:            http://repository.jboss.org/maven2/org/jboss/resteasy/resteasy-jaxb-provider/
+URL:            http://repository.jboss.org/maven2/org/jboss/resteasy/resteasy-jettison-provider/1.2.1.GA/
 Source0:        %{name}-%{version}-sources.jar
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires: java-devel  
 BuildRequires:  jpackage-utils
 BuildArch: noarch
-BuildRequires: resteasy-jaxrs >= %{version}
-BuildRequires: jaxb-impl
-Requires: slf4j
-BuildRequires: jaxrs-api
+BuildRequires: resteasy-jaxrs >= ${project.version}
+BuildRequires: resteasy-jaxb-provider >= ${project.version}
+BuildRequires: jettison = 1.1
 BuildRequires: servletapi5
-
 BuildRequires: junit
+BuildRequires: jaxrs-api
+
 Requires:  java >= 1.5
 Requires:  jpackage-utils
-Requires: resteasy-jaxrs >= %{version}
-Requires: jaxb-impl
-Requires: slf4j
+Requires: resteasy-jaxrs >= ${project.version}
+Requires: resteasy-jaxb-provider >= ${project.version}
+Requires: jettison = 1.1
 Requires: servletapi5
+Requires: jaxrs-api
 
 %description
 %package javadoc
@@ -44,7 +45,7 @@ jar -xf %{SOURCE0}
 popd
 
 %build
-classpath=src/:%{_javadir}/resteasy-jaxrs.jar:%{_javadir}/jaxb-impl.jar:%{_javadir}/sjsxp.jar:%{_javadir}/servlet-api.jar:%{_javadir}/webserver.jar:%{_javadir}/junit.jar:%{_javadir}/jaxrs-api.jar:%{_javadir}/slf4j/api.jar
+classpath=src/:%{_javadir}/resteasy-jaxrs.jar:%{_javadir}/resteasy-jaxb-provider.jar:%{_javadir}/jettison-1.1.jar:%{_javadir}/servletapi5.jar:%{_javadir}/junit.jar::%{_javadir}/jaxrs-api.jar
 
 javac -d classes -cp $classpath  `find . -name *.java` 
 javadoc -d javadoc -classpath $classpath  $(for JAVA in `find src/ -name *.java` ; do  dirname $JAVA ; done | sort -u  | sed -e 's!src.!!'  -e 's!/!.!g'  )
