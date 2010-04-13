@@ -1,0 +1,19 @@
+*** csc.scm.orig	2010-03-31 19:55:22.831032315 -0400
+--- csc.scm	2010-03-31 19:56:47.520908976 -0400
+***************
+*** 253,259 ****
+  (define linking-optimization-options default-linking-optimization-options)
+  
+  (define library-dir
+!   (prefix "" "lib"
+           (if host-mode
+               INSTALL_LIB_HOME
+               TARGET_LIB_HOME)) )
+--- 253,259 ----
+  (define linking-optimization-options default-linking-optimization-options)
+  
+  (define library-dir
+!   (prefix "" "lib64"
+           (if host-mode
+               INSTALL_LIB_HOME
+               TARGET_LIB_HOME)) )
