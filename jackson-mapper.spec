@@ -1,6 +1,6 @@
 Name:      jackson-mapper
 Version:   1.4.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:       Data Mapper for Jackson 
 
 Group:         Development/Java
@@ -9,14 +9,10 @@ URL:            http://jackson.codehaus.org
 Source0:        %{name}-%{version}-sources.jar
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
-
-BuildArch: noarch
-
 BuildRequires: java-devel  
 BuildRequires:  jpackage-utils
+BuildArch: noarch
 BuildRequires: jackson-core-lgpl >= 1.4.1
-BuildRequires: joda-time
-
 Requires:  java >= 1.5
 Requires:  jpackage-utils
 Requires: jackson-core-lgpl >= 1.4.1
@@ -39,14 +35,14 @@ jar -xf %{SOURCE0}
 popd
 
 %build
-classpath=src/:%{_javadir}/jackson-core-lgpl.jar::%{_javadir}/joda-time.jar
+classpath=src:$(build-classpath jackson-core-lgpl joda-time )
 javac -d classes -cp $classpath  `find . -name *.java` 
 javadoc -d javadoc -classpath $classpath  $(for JAVA in `find src/ -name *.java` ; do  dirname $JAVA ; done | sort -u  | sed -e 's!src.!!'  -e 's!/!.!g'  )
 find classes -name *.class | sed -e  's!classes/!!g' -e 's!^! -C classes !'  | xargs jar cfm %{name}-%{version}.jar ./src/META-INF/MANIFEST.MF
 
 
 %install
-#rm -rf $RPM_BUILD_ROOT
+rm -rf $RPM_BUILD_ROOT
 mkdir -p $RPM_BUILD_ROOT
 install -m 755 -d $RPM_BUILD_ROOT%{_javadir}
 install -m 755 %{name}-%{version}.jar $RPM_BUILD_ROOT%{_javadir}
