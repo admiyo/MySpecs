@@ -1,0 +1,17 @@
+diff -Nurd hibernate-tools-needed-classes/org/hibernate/cache/CacheFactory.java hibernate-tools-3.2.4.GA.new/org/hibernate/cache/CacheFactory.java
+--- hibernate-tools-needed-classes/org/hibernate/cache/CacheFactory.java	1969-12-31 19:00:00.000000000 -0500
++++ hibernate-tools-3.2.4.GA.new/org/hibernate/cache/CacheFactory.java	2010-04-15 19:04:03.091745593 -0400
+@@ -0,0 +1,13 @@
++//$Id: CacheFactory.java 5685 2005-02-12 07:19:50Z steveebersole $
++package org.hibernate.cache;
++
++/**
++ * @author Gavin King
++ */
++public final class CacheFactory {
++	
++	public static final String READ_ONLY = "read-only";
++	public static final String READ_WRITE = "read-write";
++	public static final String NONSTRICT_READ_WRITE = "nonstrict-read-write";
++	public static final String TRANSACTIONAL = "transactional";			
++}
