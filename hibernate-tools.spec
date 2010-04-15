@@ -20,14 +20,12 @@ BuildRequires: jakarta-commons-collections
 BuildRequires: antlr
 BuildRequires: dom4j
 BuildRequires: cglib
-#BuildRequires: ehcache
 
 
 Requires: java >= 1.5
 Requires: jpackage-utils
-Requires: bsh >= 2.0b4
 Requires: freemarker >= 2.3.8
-Requires: jtidy> = r8-20060801
+Requires: jtidy
 Requires: jakarta-commons-logging
 Requires: jakarta-commons-collections
 Requires: hibernate3
@@ -37,14 +35,14 @@ Requires: cglib
 
 
 %description
-#%package javadoc
-#Summary:        Javadocs for %{name}
-#Group:          Development/Documentation
-#Requires:       %{name} = %{version}-%{release}
-#Requires:       jpackage-utils
+%package javadoc
+Summary:        Javadocs for %{name}
+Group:          Development/Documentation
+Requires:       %{name} = %{version}-%{release}
+Requires:       jpackage-utils
 
-#%description javadoc
-#This package contains the API documentation for %{name}.
+%description javadoc
+This package contains the API documentation for %{name}.
 
 %prep
 %setup -cT
@@ -57,9 +55,8 @@ popd
 %build
 
 
-classpath=src/:$(build-classpath   commons-logging freemarker hibernate-core jakarta-commons-logging jakarta-commons-logging-jboss slf4j/jcl-over-slf4j jpa_api persistence-api javassist hibernate3-ejb-persistence-3.0-api ant jboss-common-core hibernate-annotations hibernate3-annotations dom4j cglib commons-collections jtidy jta.jar )
+classpath=src/:$(build-classpath commons-logging freemarker hibernate-core jakarta-commons-logging jakarta-commons-logging-jboss slf4j/jcl-over-slf4j jpa_api persistence-api javassist hibernate3-ejb-persistence-3.0-api ant jboss-common-core hibernate-annotations hibernate3-annotations dom4j cglib commons-collections jtidy jta.jar )
 
-#classpath=src/:$(build-classpath bsh.jar freemarker.jar jtidy.jar hibernate-core.jar jakarta-commons-logging.jar jakarta-commons-collections.jar ant antlr dom4j cglib lucene jms_api jta_api javassist jboss-common-core jpa_api ):/usr/lib64/eclipse/plugins/org.eclipse.text_3.5.0.v20090513-2000.jar:/usr/lib64/eclipse/plugins/org.eclipse.jface.text_3.5.1.r351_v20090708-0800.jar:/usr/lib64/eclipse/dropins/jdt/plugins/org.eclipse.jdt.core_3.5.1.v_972_R35x.jar
 
 
 
@@ -74,8 +71,8 @@ mkdir -p $RPM_BUILD_ROOT
 install -m 755 -d $RPM_BUILD_ROOT%{_javadir}
 install -m 755 %{name}-%{version}.jar $RPM_BUILD_ROOT%{_javadir}
 ln -s %{_javadir}/%{name}-%{version}.jar $RPM_BUILD_ROOT%{_javadir}/%{name}.jar
-#install -m 755 -d $RPM_BUILD_ROOT%{_javadocdir}/%{name}
-#cp -rp javadoc/*  $RPM_BUILD_ROOT%{_javadocdir}/%{name}
+install -m 755 -d $RPM_BUILD_ROOT%{_javadocdir}/%{name}
+cp -rp javadoc/*  $RPM_BUILD_ROOT%{_javadocdir}/%{name}
 
 %add_to_maven_depmap org.apache.maven %{name} %{version} JPP %{name}
 
@@ -96,9 +93,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_javadir}/%{name}-%{version}.jar
 %{_javadir}/%{name}.jar
 %doc
-#%files javadoc
-#%defattr(-,root,root,-)
-#%{_javadocdir}/%{name}
+%files javadoc
+%defattr(-,root,root,-)
+%{_javadocdir}/%{name}
 
 
 %changelog
