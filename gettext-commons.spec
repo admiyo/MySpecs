@@ -1,6 +1,6 @@
 Name:           gettext-commons
 Version:        0.9.6
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A Java library that for gettext-based internationalization
 
 Group:          Development/Java
@@ -31,7 +31,7 @@ Build process integration through Maven or Ant
 %package javadoc
 Summary:        Javadocs for %{name}
 Group:          Development/Documentation
-Requires:       %{name}-%{version}-%{release}
+Requires:       %{name} = %{version}-%{release}
 Requires:       jpackage-utils
 
 %description javadoc
