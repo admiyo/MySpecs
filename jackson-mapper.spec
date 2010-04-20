@@ -1,6 +1,6 @@
 Name:      jackson-mapper
 Version:   1.4.3
-Release:        3%{?dist}
+Release:        5%{?dist}
 Summary:       Data Mapper for Jackson 
 
 Group:         Development/Java
@@ -16,6 +16,8 @@ BuildRequires: jackson-core-lgpl >= 1.4.1
 Requires:  java >= 1.5
 Requires:  jpackage-utils
 Requires: jackson-core-lgpl >= 1.4.1
+Requires(post):       jpackage-utils
+Requires(postun):     jpackage-utils
 
 %description
 %package javadoc
@@ -50,7 +52,8 @@ ln -s %{_javadir}/%{name}-%{version}.jar $RPM_BUILD_ROOT%{_javadir}/%{name}.jar
 install -m 755 -d $RPM_BUILD_ROOT%{_javadocdir}/%{name}
 cp -rp javadoc/*  $RPM_BUILD_ROOT%{_javadocdir}/%{name}
 
-%add_to_maven_depmap org.apache.maven %{name} %{version} JPP %{name}
+%add_to_maven_depmap  org.codehaus.jackson %{name} %{version} JPP %{name}
+%add_to_maven_depmap  org.codehaus.jackson %{name}-lgpl %{version} JPP %{name}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -65,7 +68,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root,-)
-/etc/maven/fragments/%{name}
+%{_mavendepmapfragdir}
 %{_javadir}/%{name}-%{version}.jar
 %{_javadir}/%{name}.jar
 %doc
@@ -75,6 +78,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Apr 19 2010 Adam Young <ayoung@redhat.com>
+- Added JPP Maven Repository Fragment
+
 * Sun Apr 03 2010 Adam Young ayoung@redhat.com
 - Specfile Created by pom2rpm by Adam Young ayoung@redhat.com 
 

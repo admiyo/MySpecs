@@ -1,6 +1,6 @@
 Name:      jackson-core-lgpl
 Version:   1.4.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:       Jackson 
 
 Group:         Development/Java
@@ -14,6 +14,8 @@ BuildRequires:  jpackage-utils
 BuildArch: noarch
 Requires:  java >= 1.5
 Requires:  jpackage-utils
+Requires(post):       jpackage-utils
+Requires(postun):     jpackage-utils
 
 %description
 %package javadoc
@@ -48,7 +50,7 @@ ln -s %{_javadir}/%{name}-%{version}.jar $RPM_BUILD_ROOT%{_javadir}/%{name}.jar
 install -m 755 -d $RPM_BUILD_ROOT%{_javadocdir}/%{name}
 cp -rp javadoc/*  $RPM_BUILD_ROOT%{_javadocdir}/%{name}
 
-%add_to_maven_depmap org.apache.maven %{name} %{version} JPP %{name}
+%add_to_maven_depmap org.codehaus.jackson %{name} %{version} JPP %{name}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -63,7 +65,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root,-)
-/etc/maven/fragments/%{name}
+%{_mavendepmapfragdir}
 %{_javadir}/%{name}-%{version}.jar
 %{_javadir}/%{name}.jar
 %doc
@@ -73,6 +75,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Apr 19 2010 Adam Young <ayoung@redhat.com>
+- Added JPP Maven Repository Fragment
+
 * Sun Apr 03 2010 Adam Young ayoung@redhat.com
 - Specfile Created by pom2rpm by Adam Young ayoung@redhat.com 
 
