@@ -1,6 +1,6 @@
 Name:      wstx
 Version:   3.2.6
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:       Woodstox is a high-performance XML processor that implements Stax (JSR-173) API 
 
 Group:         Development/Java
@@ -18,6 +18,10 @@ Requires:  java >= 1.5
 Requires:  jpackage-utils
 Requires: stax-api = 1.0.1
 Provides: wstx-asl
+Requires(post):       jpackage-utils
+Requires(postun):     jpackage-utils
+
+
 
 %description
 %package javadoc
@@ -35,7 +39,9 @@ mkdir classes javadoc
 jar -xf %{SOURCE0}
 
 %build
-javac -d classes -cp %{_javadir}/relaxngDatatype.jar:%{_javadir}/msv.jar:src/java  `find src/java -name *.java` 
+
+classpath=$(build-classpath relaxngDatatype msv):src/java 
+javac -d classes -cp $classpath `find src/java -name *.java` 
 javadoc -d javadoc/ -classpath %{_javadir}/relaxngDatatype.jar:%{_javadir}/msv.jar:src/java  $(for JAVA in `find src/java -name *.java` ; do  dirname $JAVA ; done | sort -u  | sed -e 's!src/java.!!'  -e 's!/!.!g'  )
 find classes -name *.class | sed -e  's!classes/!!g' -e 's!^! -C classes !'  | xargs jar cf wstx-3.2.6.jar
 
@@ -48,7 +54,7 @@ install -m 755    wstx-3.2.6.jar  $RPM_BUILD_ROOT%{_javadir}
 install -m 755 -d $RPM_BUILD_ROOT%{_javadocdir}/%{name}
 cp -rp javadoc/*  $RPM_BUILD_ROOT%{_javadocdir}/%{name}
 
-%add_to_maven_depmap org.apache.maven %{name} %{version} JPP %{name}
+%add_to_maven_depmap org.codehaus.jettison %{name} %{version} JPP %{name}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -63,8 +69,8 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root,-)
-/etc/maven/fragments/%{name}
-%{_javadir}/wstx-3.2.6.jar
+%{_mavendepmapfragdir}
+%{_javadir}/%{name}-%{version}.jar
 %doc
 %files javadoc
 %defattr(-,root,root,-)
@@ -72,6 +78,10 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Apr 19 2010 Adam Young <ayoung@redhat.com>
+- Added JPP Maven Repository Fragment
+
+
 * Sun Apr 03 2010 Adam Young ayoung@redhat.com
 - Specfile Created by pom2rpm by Adam Young ayoung@redhat.com 
 

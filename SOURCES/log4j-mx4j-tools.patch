@@ -1,0 +1,11 @@
+--- build.xml.sav2	2007-04-18 15:15:09.000000000 +0200
++++ build.xml	2007-04-18 15:15:38.000000000 +0200
+@@ -139,7 +139,7 @@
+         <and>
+             <available classname="javax.management.MBeanInfo"
+                        classpath="${jmx.jar}"/>
+-            <available classname="com.sun.jdmk.comm.HtmlAdaptorServer">
++            <available classname="mx4j.tools.adaptor.AdaptorServerSocketFactory">
+                 <classpath>
+                     <pathelement location="${jmx.jar}"/>
+                     <pathelement location="${jmx-extra.jar}"/>

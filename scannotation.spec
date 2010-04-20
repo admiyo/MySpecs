@@ -1,6 +1,6 @@
 Name:      scannotation
 Version:   1.0.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:       scannotation 
 
 Group:         Development/Java
@@ -29,6 +29,8 @@ Summary:        Javadocs for %{name}
 Group:          Development/Documentation
 Requires:       %{name} = %{version}-%{release}
 Requires:       jpackage-utils
+Requires(post):       jpackage-utils
+Requires(postun):     jpackage-utils
 
 %description javadoc
 This package contains the API documentation for %{name}.
@@ -54,7 +56,7 @@ ln -s %{_javadir}/%{name}-%{version}.jar $RPM_BUILD_ROOT%{_javadir}/%{name}.jar
 install -m 755 -d $RPM_BUILD_ROOT%{_javadocdir}/%{name}
 cp -rp javadoc/*  $RPM_BUILD_ROOT%{_javadocdir}/%{name}
 
-%add_to_maven_depmap org.apache.maven %{name} %{version} JPP %{name}
+%add_to_maven_depmap  org.scannotation %{name} %{version} JPP %{name}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -69,7 +71,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root,-)
-/etc/maven/fragments/%{name}
+%{_mavendepmapfragdir}
 %{_javadir}/%{name}-%{version}.jar
 %{_javadir}/%{name}.jar
 %doc
@@ -79,6 +81,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Apr 19 2010 Adam Young <ayoung@redhat.com>
+- Added JPP Maven Repository Fragment
+
 * Sun Apr 03 2010 Adam Young ayoung@redhat.com
 - Specfile Created by pom2rpm by Adam Young ayoung@redhat.com 
 

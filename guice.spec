@@ -1,6 +1,6 @@
 Name:      guice
 Version:   2.0
-Release:   3%{?dist}
+Release:   4%{?dist}
 Summary:   a lightweight dependency injection framework for Java 5 and above   
 Group:         Development/Java
 License:        GPL
@@ -39,7 +39,9 @@ jar -xf %{SOURCE0}
 popd
 
 %build
-javac -d classes -cp src/:%{_javadir}/aopalliance.jar:%{_javadir}/cglib.jar:%{_javadir}/objectweb-asm/asm-all.jar `find . -name *.java` 
+classpath=src/:$(build-classpath aopalliance cglib.jar objectweb-asm/asm-all)
+
+javac -d classes -cp $classpath `find . -name *.java` 
 javadoc -d javadoc -classpath src/:%{_javadir}/aopalliance.jar:%{_javadir}/cglib.jar:%{_javadir}/objectweb-asm/asm-all.jar  $(for JAVA in `find src/ -name *.java` ; do  dirname $JAVA ; done | sort -u  | sed -e 's!src.!!'  -e 's!/!.!g'  )
 find classes -name *.class | sed -e  's!classes/!!g' -e 's!^! -C classes !'  | xargs jar cf  %{name}-%{version}.jar
 

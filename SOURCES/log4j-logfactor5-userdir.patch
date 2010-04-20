@@ -1,0 +1,46 @@
+--- src/java/org/apache/log4j/lf5/viewer/configure/ConfigurationManager.java.sav	2006-04-03 19:30:42.000000000 +0200
++++ src/java/org/apache/log4j/lf5/viewer/configure/ConfigurationManager.java	2006-04-03 19:31:35.000000000 +0200
+@@ -340,7 +340,7 @@
+     String home = System.getProperty("user.home");
+     String sep = System.getProperty("file.separator");
+ 
+-    return home + sep + "lf5" + sep + CONFIG_FILE_NAME;
++    return home + sep + ".logfactor5" + sep + CONFIG_FILE_NAME;
+   }
+ 
+   //--------------------------------------------------------------------------
+--- src/java/org/apache/log4j/lf5/viewer/configure/MRUFileManager.java.sav	2006-04-03 19:32:18.000000000 +0200
++++ src/java/org/apache/log4j/lf5/viewer/configure/MRUFileManager.java	2006-04-03 19:32:40.000000000 +0200
+@@ -166,14 +166,14 @@
+ 
+   /**
+    * Creates the directory where the MRU file list will be written.
+-   * The "lf5" directory is created in the Documents and Settings
++   * The ".logfactor5" directory is created in the Documents and Settings
+    * directory on Windows 2000 machines and where ever the user.home
+    * variable points on all other platforms.
+    */
+   public static void createConfigurationDirectory() {
+     String home = System.getProperty("user.home");
+     String sep = System.getProperty("file.separator");
+-    File f = new File(home + sep + "lf5");
++    File f = new File(home + sep + ".logfactor5");
+     if (!f.exists()) {
+       try {
+         f.mkdir();
+@@ -259,7 +259,7 @@
+     String home = System.getProperty("user.home");
+     String sep = System.getProperty("file.separator");
+ 
+-    return home + sep + "lf5" + sep + CONFIG_FILE_NAME;
++    return home + sep + ".logfactor5" + sep + CONFIG_FILE_NAME;
+   }
+ 
+   /**
+@@ -281,4 +281,4 @@
+   //--------------------------------------------------------------------------
+   //   Nested Top-Level Classes or Interfaces
+   //--------------------------------------------------------------------------
+-}
+\ No newline at end of file
++}

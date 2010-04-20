@@ -1,6 +1,6 @@
 Name:      jettison
 Version:   1.1
-Release:        4%{?dist}
+Release:        6%{?dist}
 Summary:       A StAX implementation for JSON. 
 
 Group:         Development/Java
@@ -16,7 +16,7 @@ Requires:  java >= specific_version
 Requires:  jpackage-utils
 Requires: junit >= 3.8.1
 Requires: stax-api = 1.0.1
-Requires: wstx = 3.2.2
+Requires: wstx >= 3.2.2
 Requires(post):       jpackage-utils
 Requires(postun):     jpackage-utils
 
@@ -51,7 +51,7 @@ install -m 755    jettison-1.1.jar  $RPM_BUILD_ROOT%{_javadir}
 install -m 755 -d $RPM_BUILD_ROOT%{_javadocdir}/%{name}
 cp -rp javadocs/*  $RPM_BUILD_ROOT%{_javadocdir}/%{name}
 
-%add_to_maven_depmap org.codehaus.jettison %{name} %{version} JPP %{name}
+%add_to_maven_depmap org.codehaus.jettison %{name} %{version} JPP %{name}-%{version}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -66,7 +66,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root,-)
-/etc/maven/fragments/%{name}
+%{_mavendepmapfragdir}
 %{_javadir}/jettison-1.1.jar
 %doc
 %files javadoc
@@ -77,8 +77,6 @@ rm -rf $RPM_BUILD_ROOT
 %changelog
 * Mon Apr 19 2010 Adam Young <ayoung@redhat.com>
 - Added JPP Maven Repository Fragment
-
-
 
 * Sun Apr 03 2010 Adam Young ayoung@redhat.com
 - Specfile Created by pom2rpm by Adam Young ayoung@redhat.com 
