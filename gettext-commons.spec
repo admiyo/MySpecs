@@ -1,6 +1,6 @@
 Name:           gettext-commons
 Version:        0.9.6
-Release:        2%{?dist}
+Release:        4%{?dist}
 Summary:        A Java library that for gettext-based internationalization
 
 Group:          Development/Java
@@ -33,6 +33,8 @@ Summary:        Javadocs for %{name}
 Group:          Development/Documentation
 Requires:       %{name} = %{version}-%{release}
 Requires:       jpackage-utils
+Requires(post):       jpackage-utils
+Requires(postun):     jpackage-utils
 
 %description javadoc
 This package contains the API documentation for %{name}.
@@ -67,7 +69,7 @@ install -d -m 755 $RPM_BUILD_ROOT%{_datadir}/maven2/poms
 install -pm 644  .m2/repository/org/xnap/commons/%{name}/%{version}/%{name}-%{version}.pom   \
 $RPM_BUILD_ROOT%{_datadir}/maven2/poms/JPP-%{name}.pom
 
-%add_to_maven_depmap org.apache.maven %{name} %{version} JPP %{name}
+%add_to_maven_depmap org.xnap.commons %{name} %{version} JPP %{name}-%{version}
 
 
 %clean
@@ -91,6 +93,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Apr 20 2010 Adam Young <ayoung@redhat.com>
+- Added JPP Maven Repository Support
+
 * Fri Apr 16 2010 Adam Young ayoung@redhat.com
 - Specfile Created by Adam Young from rpmdev-newspec
 - customized based on http://fedoraproject.org/wiki/Packaging/Java
