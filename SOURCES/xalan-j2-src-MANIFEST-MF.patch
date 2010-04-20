@@ -1,0 +1,32 @@
+--- ./src/manifest.xalan-interpretive.sav	2006-07-26 13:03:51.000000000 -0400
++++ ./src/manifest.xalan-interpretive	2006-07-26 13:04:05.000000000 -0400
+@@ -1,7 +1,7 @@
+ Manifest-Version: 1.0
+ Created-By: @java.version@ (@java.vendor@)
+ Main-Class: org.apache.xalan.xslt.Process
+-Class-Path: xercesImpl.jar xml-apis.jar serializer.jar
++Class-Path: xercesImpl.jar xml-apis.jar xalan-j2-serializer.jar
+ 
+ Name: org/apache/xalan/
+ Comment: Main Xalan engine implementing TrAX/JAXP
+--- ./src/manifest.xsltc.sav	2006-07-26 13:04:32.000000000 -0400
++++ ./src/manifest.xsltc	2006-07-26 13:04:49.000000000 -0400
+@@ -1,6 +1,6 @@
+ Manifest-Version: 1.0
+ Created-By: @java.version@ (@java.vendor@)
+-Class-Path: xercesImpl.jar xml-apis.jar serializer.jar
++Class-Path: xercesImpl.jar xml-apis.jar xalan-j2-serializer.jar
+ 
+ Name: org/apache/xalan/xsltc/
+ Comment: Main XSLTC engine implementing TrAX/JAXP
+--- ./src/MANIFEST.MF.sav	2006-07-26 13:05:16.000000000 -0400
++++ ./src/MANIFEST.MF	2006-07-26 13:05:28.000000000 -0400
+@@ -1,7 +1,7 @@
+ Manifest-Version: 1.0
+ Created-By: @java.version@ (@java.vendor@)
+ Main-Class: org.apache.xalan.xslt.Process
+-Class-Path: xercesImpl.jar xml-apis.jar serializer.jar
++Class-Path: xercesImpl.jar xml-apis.jar xalan-j2-serializer.jar
+ 
+ 
+ Name: org/apache/xalan/

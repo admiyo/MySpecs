@@ -1,6 +1,6 @@
 Name:      resteasy-jettison-provider
 Version:   1.2.1.GA
-Release:        2%{?dist}
+Release:        4%{?dist}
 Summary:       Resteasy Jettison Provider 
 
 Group:         Development/Java
@@ -27,6 +27,10 @@ Requires: jettison = 1.1
 Requires: servletapi5
 Requires: jaxrs-api
 
+Requires(post):       jpackage-utils
+Requires(postun):     jpackage-utils
+
+
 %description
 %package javadoc
 Summary:        Javadocs for %{name}
@@ -45,7 +49,7 @@ jar -xf %{SOURCE0}
 popd
 
 %build
-classpath=src/:%{_javadir}/resteasy-jaxrs.jar:%{_javadir}/resteasy-jaxb-provider.jar:%{_javadir}/jettison-1.1.jar:%{_javadir}/servletapi5.jar:%{_javadir}/junit.jar::%{_javadir}/jaxrs-api.jar
+classpath=src/:$(build-classpath  resteasy-jaxrs resteasy-jaxb-provider jettison-1.1 servletapi5 junit jaxrs-api)
 
 javac -d classes -cp $classpath  `find . -name *.java` 
 javadoc -d javadoc -classpath $classpath  $(for JAVA in `find src/ -name *.java` ; do  dirname $JAVA ; done | sort -u  | sed -e 's!src.!!'  -e 's!/!.!g'  )
@@ -60,8 +64,8 @@ install -m 755 %{name}-%{version}.jar $RPM_BUILD_ROOT%{_javadir}
 ln -s %{_javadir}/%{name}-%{version}.jar $RPM_BUILD_ROOT%{_javadir}/%{name}.jar
 install -m 755 -d $RPM_BUILD_ROOT%{_javadocdir}/%{name}
 cp -rp javadoc/*  $RPM_BUILD_ROOT%{_javadocdir}/%{name}
+%add_to_maven_depmap org.jboss.resteasy %{name} %{version} JPP %{name}
 
-%add_to_maven_depmap org.apache.maven %{name} %{version} JPP %{name}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -86,6 +90,10 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Apr 19 2010 Adam Young <ayoung@redhat.com>
+- Added JPP Maven Repository Fragment
+
+
 * Sun Apr 03 2010 Adam Young ayoung@redhat.com
 - Specfile Created by pom2rpm by Adam Young ayoung@redhat.com 
 

@@ -1,0 +1,26 @@
+--- build.xml.orig	2004-03-21 15:59:26.000000000 +0100
++++ build.xml	2004-03-21 16:02:02.000000000 +0100
+@@ -154,6 +154,7 @@
+   <property name="xdocs.DONE.file" value="${xdocs.dir}/sources/xalan/DONE"/>
+   <property name="xdocs.XSLTCDONE.file" value="XSLTCDONE"/>
+   <property name="xdocs.XSLTCDONE.location" value="${xdocs.dir}/sources/xalan/${xdocs.XSLTCDONE.file}"/>    
++  <property name="api.j2se" value="http://java.sun.com/j2se/1.4/docs/api/"/>
+   <path id="docs.class.path">
+     <pathelement location="${xmlapis.jar}" />
+     <pathelement location="${parser.jar}" />
+@@ -908,6 +909,7 @@
+           <group title="DOM 2" packages="org.w3c.dom*"/>
+           <group title="XSLTC Core"
+                  packages="org.apache.xalan.xsltc*"/>
++          <link href="${api.j2se}"/>
+     </javadoc>
+     
+     <!-- remove the xml-commons sources -->
+@@ -959,6 +961,7 @@
+           <group title="DOM 2" packages="org.w3c.dom*"/>
+           <group title="XSLTC Core"
+                  packages="org.apache.xalan.xsltc*"/>
++          <link href="${api.j2se}"/>
+     </javadoc>
+     
+     <!-- remove the xml-commons sources -->

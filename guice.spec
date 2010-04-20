@@ -1,6 +1,6 @@
 Name:      guice
 Version:   2.0
-Release:   2%{?dist}
+Release:   3%{?dist}
 Summary:   a lightweight dependency injection framework for Java 5 and above   
 Group:         Development/Java
 License:        GPL
@@ -17,6 +17,8 @@ BuildArch: noarch
 Requires:  java >= 1.5
 Requires:  jpackage-utils
 Requires: aopalliance
+Requires(post):       jpackage-utils
+Requires(postun):     jpackage-utils
 
 %description
 Guice alleviates the need for factories and the use of new in your Java code. Think of Guice's @Inject as the new new. You will still need to write factories in some cases, but your code will not depend directly on them. Your code will be easier to change, unit test and reuse in other contexts.
@@ -51,7 +53,7 @@ ln -s %{_javadir}/%{name}-%{version}.jar $RPM_BUILD_ROOT%{_javadir}/%{name}.jar
 install -m 755 -d $RPM_BUILD_ROOT%{_javadocdir}/%{name}
 cp -rp javadoc/*  $RPM_BUILD_ROOT%{_javadocdir}/%{name}
 
-%add_to_maven_depmap org.apache.maven %{name} %{version} JPP %{name}
+%add_to_maven_depmap com.google.guice %{name} %{version} JPP %{name}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -66,7 +68,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root,-)
-/etc/maven/fragments/%{name}
+%{_mavendepmapfragdir}
 %{_javadir}/%{name}-%{version}.jar
 %{_javadir}/%{name}.jar
 %doc
@@ -76,6 +78,10 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Apr 19 2010 Adam Young <ayoung@redhat.com>
+- Added JPP Maven Repository Fragment
+
+
 * Sun Apr 03 2010 Adam Young ayoung@redhat.com
 - Specfile Created by pom2rpm by Adam Young ayoung@redhat.com 
 

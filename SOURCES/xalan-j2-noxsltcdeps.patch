@@ -1,0 +1,11 @@
+--- build.xml.orig	2004-02-27 20:45:31.000000000 +0100
++++ build.xml	2004-03-21 15:46:37.000000000 +0100
+@@ -560,7 +560,7 @@
+   <!-- =================================================================== -->
+   <!-- Creates one big xalan jar (Xalan interpretive + XSLTC + support jars) -->
+   <!-- =================================================================== -->
+-  <target name="jar" depends="xalan-interpretive.compile,xsltc.compile,xsltc.copy-deps-jars"
++  <target name="jar" depends="xalan-interpretive.compile,xsltc.compile"
+     description="Jar up everything (Xalan, XSLTC and XSLTC dependencies)" >
+     
+     <!-- Copy over the manifest, with filtering (for version number) -->

@@ -1,6 +1,6 @@
 Name:      resteasy-jaxb-provider
 Version:   1.2.1.GA
-Release:        2%{?dist}
+Release:        4%{?dist}
 Summary:       Resteasy JAXB Provider 
 
 Group:         Development/Java
@@ -25,6 +25,8 @@ Requires: resteasy-jaxrs >= %{version}
 Requires: jaxb-impl
 Requires: slf4j
 Requires: servletapi5
+Requires(post):       jpackage-utils
+Requires(postun):     jpackage-utils
 
 %description
 %package javadoc
@@ -44,7 +46,7 @@ jar -xf %{SOURCE0}
 popd
 
 %build
-classpath=src/:%{_javadir}/resteasy-jaxrs.jar:%{_javadir}/jaxb-impl.jar:%{_javadir}/sjsxp.jar:%{_javadir}/servlet-api.jar:%{_javadir}/webserver.jar:%{_javadir}/junit.jar:%{_javadir}/jaxrs-api.jar:%{_javadir}/slf4j/api.jar
+classpath=src/:$(build-classpath resteasy-jaxrs jaxb-impl servletapi5  junit jaxrs-api slf4j)
 
 javac -d classes -cp $classpath  `find . -name *.java` 
 javadoc -d javadoc -classpath $classpath  $(for JAVA in `find src/ -name *.java` ; do  dirname $JAVA ; done | sort -u  | sed -e 's!src.!!'  -e 's!/!.!g'  )
@@ -60,7 +62,7 @@ ln -s %{_javadir}/%{name}-%{version}.jar $RPM_BUILD_ROOT%{_javadir}/%{name}.jar
 install -m 755 -d $RPM_BUILD_ROOT%{_javadocdir}/%{name}
 cp -rp javadoc/*  $RPM_BUILD_ROOT%{_javadocdir}/%{name}
 
-%add_to_maven_depmap org.apache.maven %{name} %{version} JPP %{name}
+%add_to_maven_depmap org.jboss.resteasy  %{name} %{version} JPP %{name}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -85,6 +87,10 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Apr 19 2010 Adam Young <ayoung@redhat.com>
+- Added JPP Maven Repository Fragment
+
+
 * Sun Apr 03 2010 Adam Young ayoung@redhat.com
 - Specfile Created by pom2rpm by Adam Young ayoung@redhat.com 
 

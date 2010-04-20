@@ -33,6 +33,9 @@ Requires: antlr
 Requires: dom4j
 Requires: cglib
 
+Requires(post):       jpackage-utils
+Requires(postun):     jpackage-utils
+
 
 %description
 %package javadoc
@@ -54,13 +57,10 @@ popd
 
 %build
 
-
 classpath=src/:$(build-classpath commons-logging freemarker hibernate-core jakarta-commons-logging jakarta-commons-logging-jboss slf4j/jcl-over-slf4j jpa_api persistence-api javassist hibernate3-ejb-persistence-3.0-api ant jboss-common-core hibernate-annotations hibernate3-annotations dom4j cglib commons-collections jtidy jta.jar )
 
-
-
-
 javac -d classes -cp $classpath  `find . -name *.java` 
+
 javadoc -d javadoc -classpath $classpath $(for JAVA in `find src/ -name *.java` ; do  dirname $JAVA ; done | sort -u  | sed -e 's!src.!!'  -e 's!/!.!g'  )
 find classes -name *.class | sed -e  's!classes/!!g' -e 's!^! -C classes !'  | xargs jar cfm %{name}-%{version}.jar ./src/META-INF/MANIFEST.MF
 
@@ -89,7 +89,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root,-)
-/etc/maven/fragments/%{name}
+%{_mavendepmapfragdir}
 %{_javadir}/%{name}-%{version}.jar
 %{_javadir}/%{name}.jar
 %doc
