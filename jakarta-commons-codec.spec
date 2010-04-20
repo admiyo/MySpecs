@@ -37,7 +37,7 @@
 %define section    free
 
 Name:           jakarta-commons-codec
-Version:        1.3
+Version:        1.4
 Release:        11.8%{?dist}
 Summary:        Implementations of common encoders and decoders
 License:        ASL 2.0
@@ -49,7 +49,7 @@ Source0:        commons-codec-%{version}-src.tar.gz
 # cd CODEC_1_3
 # tar czvf commons-codec-1.3-src.tar.gz .
 
-Patch0:         jakarta-commons-codec-1.3-buildscript.patch
+#Patch0:         jakarta-commons-codec-1.3-buildscript.patch
 # Add OSGi manifest
 Patch1:         %{name}-addosgimanifest.patch
 BuildRequires:  jpackage-utils >= 0:1.6
@@ -93,27 +93,30 @@ Javadoc for %{name}.
 # -----------------------------------------------------------------------------
 
 %prep
-%setup -q -c
+%setup -q -n commons-codec-1.4-src
+
+#was -q -c
 
 # FIXME Remove SoundexTest which is failing
 # and thus preventing the build to proceed.
 # This problem has been communicated upstream Bug 31096
-%patch0 -p1
+#%patch0 -p1
 
 # Add OSGi manifest
-pushd src/conf
-%patch1 -p0
-popd
+#pushd src/conf
+#%patch1 -p0
+#popd
 
 #fixes eof encoding
-%{__sed} -i 's/\r//' LICENSE.txt
-%{__sed} -i 's/\r//' RELEASE-NOTES.txt
+#%{__sed} -i 's/\r//' LICENSE.txt
+#%{__sed} -i 's/\r//' RELEASE-NOTES.txt
 
 # -----------------------------------------------------------------------------
 
 %build
+
 export CLASSPATH=$(build-classpath junit)
-perl -p -i -e 's|../LICENSE|LICENSE.txt|g' build.xml
+#perl -p -i -e 's|../LICENSE|LICENSE.txt|g' build.xml
 ant -Dbuild.sysclasspath=first \
   -Dconf.home=src/conf \
   -Dbuild.home=build \
@@ -185,7 +188,7 @@ fi
 %{_mavendepmapfragdir}
 
 %if %{gcj_support}
-%attr(-,root,root) %{_libdir}/gcj/%{name}/jakarta-commons-codec-1.3.jar.*
+%attr(-,root,root) %{_libdir}/gcj/%{name}/jakarta-commons-codec-%{version}.jar.*
 %endif
 
 %files javadoc
