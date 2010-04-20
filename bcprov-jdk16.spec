@@ -1,6 +1,6 @@
 Name:      bcprov-jdk16
 Version:   1.44
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:       The Bouncy Castle Crypto package is a Java implementation of cryptographic algorithms. This jar contains JCE provider and lightweight API for the Bouncy Castle Cryptography APIs for JDK 1.6. 
 
 Group:         Development/Java
@@ -8,12 +8,15 @@ License:        Bouncy Castle Licence
 URL:            http://www.bouncycastle.org/java.html
 Source0:        %{name}-%{version}-sources.jar
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+BuildArch: noarch
 
 BuildRequires: java-devel  
 BuildRequires:  jpackage-utils
-BuildArch: noarch
 Requires:  java >= 1.5
 Requires:  jpackage-utils
+Requires(post):       jpackage-utils
+Requires(postun):     jpackage-utils
+
 
 %description
 %package javadoc
@@ -47,7 +50,7 @@ ln -s %{_javadir}/%{name}-%{version}.jar $RPM_BUILD_ROOT%{_javadir}/%{name}.jar
 install -m 755 -d $RPM_BUILD_ROOT%{_javadocdir}/%{name}
 cp -rp javadoc/*  $RPM_BUILD_ROOT%{_javadocdir}/%{name}
 
-%add_to_maven_depmap org.apache.maven %{name} %{version} JPP %{name}
+%add_to_maven_depmap org.bouncycastle %{name} %{version} JPP %{name}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -62,7 +65,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root,-)
-/etc/maven/fragments/%{name}
+%{_mavendepmapfragdir}
 %{_javadir}/%{name}-%{version}.jar
 %{_javadir}/%{name}.jar
 %doc

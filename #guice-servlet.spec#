@@ -19,7 +19,7 @@ Requires:  jpackage-utils
 Requires: guice
 Requires(post):       jpackage-utils
 Requires(postun):     jpackage-utils
-
+x
 %description
 extension for guice
 %package javadoc

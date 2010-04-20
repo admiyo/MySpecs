@@ -1,6 +1,6 @@
 Name:      guice
 Version:   2.0
-Release:   4%{?dist}
+Release:   5%{?dist}
 Summary:   a lightweight dependency injection framework for Java 5 and above   
 Group:         Development/Java
 License:        GPL
@@ -56,6 +56,7 @@ install -m 755 -d $RPM_BUILD_ROOT%{_javadocdir}/%{name}
 cp -rp javadoc/*  $RPM_BUILD_ROOT%{_javadocdir}/%{name}
 
 %add_to_maven_depmap com.google.guice %{name} %{version} JPP %{name}
+%add_to_maven_depmap com.google.inject %{name} %{version} JPP %{name}
 
 %clean
 rm -rf $RPM_BUILD_ROOT

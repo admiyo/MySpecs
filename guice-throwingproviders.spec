@@ -1,6 +1,6 @@
 Name:      guice-throwingproviders
 Version:   2.0
-Release:   1%{?dist}
+Release:   4%{?dist}
 Summary:   extension for guice 
 Group:         Development/Java
 License:        GPL
@@ -16,6 +16,9 @@ BuildArch: noarch
 Requires:  java >= 1.5
 Requires:  jpackage-utils
 Requires: guice
+Requires(post):       jpackage-utils
+Requires(postun):     jpackage-utils
+
 
 %description
 extension for guice
@@ -41,7 +44,7 @@ javadoc -d javadoc -classpath src/:%{_javadir}/guice.jar  $(for JAVA in `find sr
 find classes -name *.class | sed -e  's!classes/!!g' -e 's!^! -C classes !'  | xargs jar cf  %{name}-%{version}.jar
 
 %install
-#rm -rf $RPM_BUILD_ROOT
+rm -rf $RPM_BUILD_ROOT
 mkdir -p $RPM_BUILD_ROOT
 install -m 755 -d $RPM_BUILD_ROOT%{_javadir}
 install -m 755 %{name}-%{version}.jar $RPM_BUILD_ROOT%{_javadir}
@@ -50,7 +53,9 @@ ln -s %{_javadir}/%{name}-%{version}.jar $RPM_BUILD_ROOT%{_javadir}/%{name}.jar
 install -m 755 -d $RPM_BUILD_ROOT%{_javadocdir}/%{name}
 cp -rp javadoc/*  $RPM_BUILD_ROOT%{_javadocdir}/%{name}
 
-%add_to_maven_depmap org.apache.maven %{name} %{version} JPP %{name}
+%add_to_maven_depmap com.google.inject.extensions %{name} %{version} JPP %{name}
+%add_to_maven_depmap com.google.inject.extensions guice-throwing-providers %{version} JPP %{name}
+
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -65,7 +70,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root,-)
-/etc/maven/fragments/%{name}
+%{_mavendepmapfragdir}
 %{_javadir}/%{name}-%{version}.jar
 %{_javadir}/%{name}.jar
 %doc

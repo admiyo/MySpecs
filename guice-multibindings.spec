@@ -1,6 +1,6 @@
 Name:      guice-multibindings
 Version:   2.0
-Release:   1%{?dist}
+Release:   2%{?dist}
 Summary:   extension for guice 
 Group:         Development/Java
 License:        GPL
@@ -16,6 +16,9 @@ BuildArch: noarch
 Requires:  java >= 1.5
 Requires:  jpackage-utils
 Requires: guice
+Requires(post):       jpackage-utils
+Requires(postun):     jpackage-utils
+
 
 %description
 extension for guice
@@ -50,7 +53,7 @@ ln -s %{_javadir}/%{name}-%{version}.jar $RPM_BUILD_ROOT%{_javadir}/%{name}.jar
 install -m 755 -d $RPM_BUILD_ROOT%{_javadocdir}/%{name}
 cp -rp javadoc/*  $RPM_BUILD_ROOT%{_javadocdir}/%{name}
 
-%add_to_maven_depmap org.apache.maven %{name} %{version} JPP %{name}
+%add_to_maven_depmap com.google.inject.extensions %{name} %{version} JPP %{name}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -65,7 +68,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root,-)
-/etc/maven/fragments/%{name}
+%{_mavendepmapfragdir}
 %{_javadir}/%{name}-%{version}.jar
 %{_javadir}/%{name}.jar
 %doc
@@ -75,6 +78,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Tue Apr 20 2010 Adam Young <ayoung@redhat.com>
+- Added JPP Maven Repository support
+
 * Sun Apr 03 2010 Adam Young ayoung@redhat.com
 - Specfile Created by pom2rpm by Adam Young ayoung@redhat.com 
 
