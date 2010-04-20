@@ -1,6 +1,6 @@
 Name:      hibernate-tools
 Version:   3.2.4.GA
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:       Forward- and reverse-engineering tools for Eclipse and Ant. 
 
 Group:         Development/Java
@@ -43,6 +43,8 @@ Summary:        Javadocs for %{name}
 Group:          Development/Documentation
 Requires:       %{name} = %{version}-%{release}
 Requires:       jpackage-utils
+Requires(post):       jpackage-utils
+Requires(postun):     jpackage-utils
 
 %description javadoc
 This package contains the API documentation for %{name}.
@@ -74,7 +76,7 @@ ln -s %{_javadir}/%{name}-%{version}.jar $RPM_BUILD_ROOT%{_javadir}/%{name}.jar
 install -m 755 -d $RPM_BUILD_ROOT%{_javadocdir}/%{name}
 cp -rp javadoc/*  $RPM_BUILD_ROOT%{_javadocdir}/%{name}
 
-%add_to_maven_depmap org.apache.maven %{name} %{version} JPP %{name}
+%add_to_maven_depmap org.hibernate %{name} %{version} JPP %{name}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -99,6 +101,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Apr 19 2010 Adam Young <ayoung@redhat.com>
+- Added JPP Maven Repository Fragment
+
 * Sun Apr 03 2010 Adam Young ayoung@redhat.com
 - Specfile Created by pom2rpm by Adam Young ayoung@redhat.com 
 

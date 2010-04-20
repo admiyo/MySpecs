@@ -1,6 +1,6 @@
 Name:      jta
 Version:   1.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Java Transaction API
 
 Group:         Development/Java
@@ -14,6 +14,8 @@ BuildRequires:  jpackage-utils
 BuildArch: noarch
 Requires:  java >= 1.5
 Requires:  jpackage-utils
+Requires(post):       jpackage-utils
+Requires(postun):     jpackage-utils
 
 %description
 one of the Java Enterprise Edition (JEE) APIs allowing distributed transactions to be done across multiple XA resources in a Java environment. JTA is a specification developed under the Java Community Process as JSR 907. JTA provides for demarcation of transaction boundaries,  and  X/Open XA API allowing resources to participate in transactions.
@@ -49,7 +51,7 @@ ln -s %{_javadir}/%{name}-%{version}.jar $RPM_BUILD_ROOT%{_javadir}/%{name}.jar
 install -m 755 -d $RPM_BUILD_ROOT%{_javadocdir}/%{name}
 cp -rp javadoc/*  $RPM_BUILD_ROOT%{_javadocdir}/%{name}
 
-%add_to_maven_depmap org.apache.maven %{name} %{version} JPP %{name}
+%add_to_maven_depmap javax.transaction %{name} %{version} JPP %{name}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -64,7 +66,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root,-)
-/etc/maven/fragments/%{name}
+%{_mavendepmapfragdir}
 %{_javadir}/%{name}-%{version}.jar
 %{_javadir}/%{name}.jar
 %doc
@@ -74,6 +76,10 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Apr 19 2010 Adam Young <ayoung@redhat.com>
+- Added JPP Maven Repository Fragment
+
+
 * Sun Apr 03 2010 Adam Young ayoung@redhat.com
 - Specfile Created by pom2rpm by Adam Young ayoung@redhat.com 
 
