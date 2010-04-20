@@ -1,0 +1,11 @@
+--- build.xml.sav	2006-06-11 09:44:04.000000000 +0200
++++ build.xml	2006-06-11 09:45:45.000000000 +0200
+@@ -13,7 +13,7 @@
+ 
+     <property file="build.properties"/>
+ 
+-    <property name="opensymphony.project.dir" location="../opensymphony"/>
++    <property name="opensymphony.project.dir" location="opensymphony"/>
+    
+ 	<copy todir="${basedir}" failonerror="false" overwrite="true">
+         <fileset file="${opensymphony.project.dir}/common/osbuild.xml" />

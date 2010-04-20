@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="">
+  <component id="quartz"
+             licenseType=""
+             version="@VERSION@"
+             tag="@TAG@"
+             description=""
+             
+             > 
+              
+    <artifact id="quartz.jar"/>
+
+
+    <export>
+      <include input="quartz.jar"/>
+
+    </export>
+  </component>
+</project>
