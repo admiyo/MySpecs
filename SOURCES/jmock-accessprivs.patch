@@ -1,0 +1,12 @@
+diff -Nurd jmock-1.2.0-orig/src/org/jmock/expectation/AssertMo.java jmock-1.2.0/src/org/jmock/expectation/AssertMo.java
+--- jmock-1.2.0-orig/src/org/jmock/expectation/AssertMo.java	2010-04-20 20:40:55.273050025 -0400
++++ jmock-1.2.0/src/org/jmock/expectation/AssertMo.java	2010-04-20 20:41:30.250983425 -0400
+@@ -73,7 +73,7 @@
+         assertTrue("Should not have verified", threwException);
+     }
+ 
+-    static protected void failNotEquals( String message,
++    static public void failNotEquals( String message,
+                                          Object expected,
+                                          Object actual ) {
+         String formatted = "";

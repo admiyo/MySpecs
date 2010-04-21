@@ -1,23 +1,24 @@
-Name:      mockito
-Version:   1.8.1
-Release:        3%{?dist}
-Summary:       Mockito 
+Name:      jmock
+Version:   1.2.0
+Release:        2%{?dist}
+Summary:       jMock 
 
 Group:         Development/Java
-License:        The MIT License
-URL:            http://www.mockito.org
-Source0:        %{name}-all-%{version}-sources.jar
+License:        BSD
+URL:            http://www.jmock.org/
+Source0:        %{name}-%{version}-sources.jar
+Patch0: 	jmock-accessprivs.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires: java-devel  
-BuildRequires: jpackage-utils
-BuildRequires: ant 
-BuildRequires: junit4
+BuildRequires:  jpackage-utils
 BuildArch: noarch
+BuildRequires: junit >= 3.8.1
 Requires:  java >= 1.5
 Requires:  jpackage-utils
 Requires(post):       jpackage-utils
 Requires(postun):     jpackage-utils
+Requires: junit >= 3.8.1
 
 %description
 %package javadoc
@@ -36,8 +37,10 @@ pushd src
 jar -xf %{SOURCE0}
 popd
 
+%patch0 -p1
+
 %build
-classpath=src:$(build-classpath ant junit4)
+classpath=src:$(build-classpath junit  )
 javac -d classes -cp $classpath  `find . -name *.java` 
 javadoc -d javadoc -classpath $classpath  $(for JAVA in `find src/ -name *.java` ; do  dirname $JAVA ; done | sort -u  | sed -e 's!src.!!'  -e 's!/!.!g'  )
 find classes -name *.class | sed -e  's!classes/!!g' -e 's!^! -C classes !'  | xargs jar cfm %{name}-%{version}.jar ./src/META-INF/MANIFEST.MF
@@ -52,7 +55,7 @@ ln -s %{_javadir}/%{name}-%{version}.jar $RPM_BUILD_ROOT%{_javadir}/%{name}.jar
 install -m 755 -d $RPM_BUILD_ROOT%{_javadocdir}/%{name}
 cp -rp javadoc/*  $RPM_BUILD_ROOT%{_javadocdir}/%{name}
 
-%add_to_maven_depmap org.mockito %{name}-all %{version} JPP %{name}
+%add_to_maven_depmap jmock %{name} %{version} JPP %{name}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
