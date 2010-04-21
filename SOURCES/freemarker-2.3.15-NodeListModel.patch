@@ -1,0 +1,62 @@
+--- src/freemarker/ext/jdom/NodeListModel.java.sav2	2008-12-16 14:58:35.000000000 +0100
++++ src/freemarker/ext/jdom/NodeListModel.java	2009-03-20 18:33:17.000000000 +0100
+@@ -734,7 +734,7 @@
+                 else if ("data".equals(localName))
+                     attr = new Attribute("data", pi.getData());
+                 else
+-                    attr = new Attribute(localName, pi.getValue(localName));
++                    attr = new Attribute(localName, pi.getValue());
+             } else if (node instanceof DocType) {
+                 DocType doctype = (DocType)node;
+                 if ("publicId".equals(localName))
+@@ -844,17 +844,17 @@
+     private static final Element getParent(Object node)
+     {
+         if (node instanceof Element)
+-            return((Element)node).getParent();
++            return(Element)((Element)node).getParent();
+         else if (node instanceof Attribute)
+-            return((Attribute)node).getParent();
++            return(Element)((Attribute)node).getParent();
+         else if (node instanceof Text)
+-            return((Text)node).getParent();
++            return(Element)((Text)node).getParent();
+         else if (node instanceof ProcessingInstruction)
+-            return((ProcessingInstruction)node).getParent();
++            return(Element)((ProcessingInstruction)node).getParent();
+         else if (node instanceof Comment)
+-            return((Comment)node).getParent();
++            return(Element)((Comment)node).getParent();
+         else if (node instanceof EntityRef)
+-            return((EntityRef)node).getParent();
++            return(Element)((EntityRef)node).getParent();
+         else
+             // With 2.1 semantics it  makes more sense to just return a null and let the core 
+             // throw an InvalidReferenceException and the template writer can use ?exists etcetera. (JR)
+@@ -878,7 +878,7 @@
+             LinkedList list = new LinkedList();
+             do {
+                 list.addFirst(parent);
+-                parent = parent.getParent();
++                parent = (Element)parent.getParent();
+             }
+             while (parent != null);
+             return list;
+@@ -894,7 +894,7 @@
+             list.addFirst(node);
+             do {
+                 list.addFirst(parent);
+-                parent = parent.getParent();
++                parent = (Element)parent.getParent();
+             }
+             while (parent != null);
+             return list;
+@@ -953,7 +953,7 @@
+                 Element parent = ((Attribute)node).getParent();
+                 doc = parent == null ? null : parent.getDocument();
+             } else if (node instanceof Text) {
+-                Element parent = ((Text)node).getParent();
++                Element parent = (Element)((Text)node).getParent();
+                 doc = parent == null ? null : parent.getDocument();
+             } else if (node instanceof Document)
+                 doc = (Document)node;

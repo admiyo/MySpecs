@@ -1,0 +1,19 @@
+--- src/freemarker/ext/jython/JythonHashModel.java.sav	2009-03-20 18:16:07.000000000 +0100
++++ src/freemarker/ext/jython/JythonHashModel.java	2009-03-20 18:17:00.000000000 +0100
+@@ -137,7 +137,7 @@
+         {
+             throw new TemplateModelException(e);
+         }
+-        throw new TemplateModelException("'?keys' is not supported as there is no 'keys' nor 'keySet' attribute on an instance of " + object.__class__.__name__);
++        throw new TemplateModelException("'?keys' is not supported as there is no 'keys' nor 'keySet' attribute on an instance of " + object);
+     }
+ 
+     /**
+@@ -157,6 +157,6 @@
+         {
+             throw new TemplateModelException(e);
+         }
+-        throw new TemplateModelException("'?values' is not supported as there is no 'values' attribute on an instance of " + object.__class__.__name__);
++        throw new TemplateModelException("'?values' is not supported as there is no 'values' attribute on an instance of " + object);
+     }
+ }

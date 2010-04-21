@@ -1,0 +1,20 @@
+--- src/freemarker/ext/xml/JdomNavigator.java.sav	2009-03-20 18:34:15.000000000 +0100
++++ src/freemarker/ext/xml/JdomNavigator.java	2009-03-20 18:35:08.000000000 +0100
+@@ -169,7 +169,7 @@
+                 result.add(new Attribute("data", pi.getData()));
+             }
+             else {
+-                result.add(new Attribute(localName, pi.getValue(localName)));
++                result.add(new Attribute(localName, pi.getValue()));
+             }
+         } else if (node instanceof DocType) {
+             DocType doctype = (DocType)node;
+@@ -235,7 +235,7 @@
+             return parent == null ? null : parent.getDocument();
+         } 
+         else if (node instanceof Text) {
+-            Element parent = ((Text)node).getParent();
++            Element parent = (Element)((Text)node).getParent();
+             return parent == null ? null : parent.getDocument();
+         } 
+         else if (node instanceof Document)

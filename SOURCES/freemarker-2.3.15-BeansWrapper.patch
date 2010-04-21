@@ -1,0 +1,34 @@
+--- src/freemarker/ext/beans/BeansWrapper.java.sav	2009-03-20 18:18:29.000000000 +0100
++++ src/freemarker/ext/beans/BeansWrapper.java	2009-03-20 18:20:38.000000000 +0100
+@@ -231,9 +231,9 @@
+      * model instances.
+      */
+     public BeansWrapper() {
+-        if(javaRebelAvailable) {
+-            JavaRebelIntegration.registerWrapper(this);
+-        }
++//      if(javaRebelAvailable) {
++//          JavaRebelIntegration.registerWrapper(this);
++//      }
+     }
+     
+     /**
+@@ -1559,12 +1559,12 @@
+ 
+     
+     private static boolean isJavaRebelAvailable() {
+-        try {
+-            JavaRebelIntegration.testAvailability();
+-            return true;
+-        }
+-        catch(NoClassDefFoundError e) {
++//      try {
++//          JavaRebelIntegration.testAvailability();
++//          return true;
++//      }
++//      catch(NoClassDefFoundError e) {
+             return false;
+-        }
++//      }
+     }
+ }

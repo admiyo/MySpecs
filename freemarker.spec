@@ -35,7 +35,7 @@ Name:		freemarker
 Summary:	FreeMarker template engine
 Url:		http://freemarker.sourceforge.net/
 Version:	2.3.15
-Release:	1%{?dist}
+Release:	2%{?dist}
 Epoch:		0
 License:	BSD-style
 Group:		Development/Libraries/Java
@@ -201,6 +201,7 @@ install -m 644 lib/%{name}.jar \
         $RPM_BUILD_ROOT%{_javadir}/%{name}-%{version}.jar
 (cd $RPM_BUILD_ROOT%{_javadir} && for jar in *-%{version}*; do ln -sf ${jar} `echo $jar| sed  "s|-%{version}||g"`; done)
 %add_to_maven_depmap %{name} %{name} %{version} JPP %{name}
+%add_to_maven_depmap org.freemarker %{name} %{version} JPP %{name}
 
 # poms
 install -d -m 755 $RPM_BUILD_ROOT%{_datadir}/maven2/poms
