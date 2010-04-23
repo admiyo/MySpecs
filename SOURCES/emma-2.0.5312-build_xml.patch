@@ -1,0 +1,32 @@
+--- build.xml.orig	2005-06-12 19:20:56.000000000 +0200
++++ build.xml	2007-07-06 09:09:57.000000000 +0200
+@@ -108,7 +108,7 @@
+     <property name="build.target.j2se.12.home" value="${build.target.j2se.14.home}" />
+     <property name="build.target.j2se.13.home" value="${build.target.j2se.14.home}" />
+ 
+-    <property name="build.target.ant.15.home" value="${env.ANT_HOME}" />
++    <property name="build.target.ant.15.home" value="/usr/share/java" />
+     <property name="build.target.ant.14.home" value="${build.target.ant.15.home}" />
+ 
+     
+@@ -509,6 +509,20 @@
+          command="-t rtag -r ${cvs.branch.label} -d -a ${cvs.ready.label} ${app.short.name}" />
+   </target>
+ 
++  <target name="javadoc" description="o Generate javadoc" >
++    <mkdir dir="${out.dir}/javadocs"></mkdir>
++    <tstamp>
++      <format pattern="2002-yyyy" property="year"></format>
++    </tstamp>
++    <property name="copyright" value="Copyright &amp;copy;  The Codehaus. All Rights Reserved."></property>
++    <property name="title" value="Emma 2.0 API"></property>
++    <javadoc use="true" private="true" destdir="${out.dir}/javadocs" author="true" version="true" sourcepath="core/java12" packagenames="com.vladium.*">
++      <classpath>
++        <path refid="core.classpath"></path>
++      </classpath>
++    </javadoc>
++  </target>
++
+ </project>
+ <!-- ========= END OF FILE ========================================== -->
+ 

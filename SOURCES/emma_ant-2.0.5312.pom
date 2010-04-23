@@ -1,0 +1,14 @@
+<project>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>emma</groupId>
+  <artifactId>emma_ant</artifactId>
+  <name>EMMA Ant</name>
+  <version>2.0</version>
+  <dependencies>
+    <dependency>
+      <groupId>ant</groupId>
+      <artifactId>ant</artifactId>
+      <version>1.6.5</version>
+    </dependency>
+  </dependencies>
+</project>

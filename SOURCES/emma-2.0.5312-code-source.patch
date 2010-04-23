@@ -1,0 +1,18 @@
+--- emma-2.0.5312/core/java12/com/vladium/emma/rt/InstrClassLoader.java.orig	2008-07-29 17:36:52.409677302 -0400
++++ emma-2.0.5312/core/java12/com/vladium/emma/rt/InstrClassLoader.java	2008-07-29 17:37:41.260802633 -0400
+@@ -343,7 +343,7 @@
+         // support ProtectionDomains with non-null class source URLs:
+         // [however, disable anything related to sealing or signing]
+         
+-        final CodeSource csrc = new CodeSource (srcURL, null);
++        final CodeSource csrc = new CodeSource (srcURL, (java.security.cert.Certificate[]) null);
+         
+         // allow getPackage() to return non-null on the class we are about to
+         // define (however, don't bother emulating the original manifest info since
+@@ -459,4 +459,4 @@
+     private static final URL [] EMPTY_URL_ARRAY = new URL [0];
+     
+ } // end of class
+-// ----------------------------------------------------------------------------
+\ No newline at end of file
++// ----------------------------------------------------------------------------

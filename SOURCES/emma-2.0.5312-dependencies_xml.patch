@@ -1,0 +1,17 @@
+--- dependencies.xml.orig	2006-01-24 18:43:37.000000000 +0100
++++ dependencies.xml	2006-01-24 18:43:53.000000000 +0100
+@@ -5,12 +5,12 @@
+ 
+   <!-- ANT 1.4.x dependency: -->
+   <path id="boot.ant.14.classpath" >
+-    <pathelement location="${build.target.ant.14.home}/lib/ant.jar" />
++    <pathelement location="${build.target.ant.14.home}/ant.jar" />
+   </path>
+ 
+   <!-- ANT 1.5.x dependency: -->
+   <path id="boot.ant.15.classpath" >
+-    <pathelement location="${build.target.ant.15.home}/lib/ant.jar" />
++    <pathelement location="${build.target.ant.15.home}/ant.jar" />
+   </path>
+ 
+ 

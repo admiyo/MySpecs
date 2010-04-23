@@ -1,0 +1,66 @@
+--- emma-2.0.5312/build.xml.orig	2008-07-29 17:30:09.420133817 -0400
++++ emma-2.0.5312/build.xml	2008-07-29 17:32:42.013677186 -0400
+@@ -36,7 +36,6 @@
+   <property name="build.deprecation" value="off" />
+   <property name="build.compiler" value="modern" />
+   <property name="build.sysclasspath" value="ignore" />
+-  <property name="build.target" value="1.2" /> <!-- all .class files are stamped as compatible with 1.2 JVMs: -->
+ 
+   <!-- ============================================================== -->
+   <!-- main/default build target: -->
+@@ -244,7 +243,6 @@
+     <javac destdir="${core.classes.out.dir}"
+            debug="${build.debug}"
+            deprecation="${build.deprecation}"
+-           target="${build.target}"
+            bootclasspathref="boot.j2se.12.classpath"
+            extdirs="${ext.j2se.12.classpath}"
+            classpathref="core.classpath"
+@@ -263,7 +261,6 @@
+     <javac destdir="${core.classes.out.dir}"
+            debug="${build.debug}"
+            deprecation="${build.deprecation}"
+-           target="${build.target}"
+            bootclasspathref="boot.j2se.14.classpath"
+            extdirs="${ext.j2se.14.classpath}"
+            classpathref="core.classpath"
+@@ -276,7 +273,6 @@
+     <javac destdir="${core.classes.out.dir}"
+            debug="${build.debug}"
+            deprecation="${build.deprecation}"
+-           target="${build.target}"
+            bootclasspathref="boot.j2se.13.classpath"
+            extdirs="${ext.j2se.13.classpath}"
+            classpathref="core.classpath"
+@@ -290,7 +286,6 @@
+     <javac destdir="${core.classes.out.dir}"
+            debug="${build.debug}"
+            deprecation="${build.deprecation}"
+-           target="${build.target}"
+            bootclasspathref="boot.j2se.12.classpath"
+            extdirs="${ext.j2se.12.classpath}"
+            classpathref="core.classpath"
+@@ -308,7 +303,6 @@
+     <javac destdir="${tools.classes.out.dir}"
+            debug="${build.debug}"	
+            deprecation="${build.deprecation}"
+-           target="${build.target}"
+            bootclasspathref="boot.j2se.14.classpath"
+            extdirs="${ext.j2se.14.classpath}"
+            classpathref="tools.classpath"
+@@ -324,7 +318,6 @@
+     <javac destdir="${ant.classes.out.dir}"
+            debug="${build.debug}"
+            deprecation="${build.deprecation}"
+-           target="${build.target}"
+            bootclasspathref="boot.j2se.12.classpath"
+            extdirs="${ext.j2se.12.classpath}"
+            classpathref="ant.15.classpath"
+@@ -338,7 +331,6 @@
+     <javac destdir="${ant.classes.out.dir}"
+            debug="${build.debug}"
+            deprecation="${build.deprecation}"
+-           target="${build.target}"
+            bootclasspathref="boot.j2se.12.classpath"
+            extdirs="${ext.j2se.12.classpath}"
+            classpathref="ant.14.classpath"
