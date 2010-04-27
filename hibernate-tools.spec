@@ -20,6 +20,8 @@ BuildRequires: jakarta-commons-collections
 BuildRequires: antlr
 BuildRequires: dom4j
 BuildRequires: cglib
+BuildRequires: jboss-common-core
+BuildRequires: persistence-api
 
 
 Requires: java >= 1.5
@@ -59,7 +61,7 @@ popd
 
 %build
 
-classpath=src/:$(build-classpath commons-logging freemarker hibernate-core jakarta-commons-logging jakarta-commons-logging-jboss slf4j/jcl-over-slf4j jpa_api persistence-api javassist hibernate3-ejb-persistence-3.0-api ant jboss-common-core hibernate-annotations hibernate3-annotations dom4j cglib commons-collections jtidy jta.jar )
+classpath=src/:$(build-classpath commons-logging freemarker hibernate-core jakarta-commons-logging jakarta-commons-logging-jboss slf4j/jcl-over-slf4j  persistence-api javassist hibernate3-ejb-persistence-3.0-api ant jboss-common-core hibernate-annotations hibernate3-annotations dom4j cglib commons-collections jtidy jta.jar )
 
 javac -d classes -cp $classpath  `find . -name *.java` 
 

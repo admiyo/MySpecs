@@ -1,0 +1,10 @@
+--- project.xml.old	2008-11-29 22:21:57.000000000 +0200
++++ project.xml	2008-11-29 22:22:05.000000000 +0200
+@@ -455,7 +455,6 @@
+     <nagEmailAddress>dev@commons.apache.org</nagEmailAddress>
+     <sourceDirectory>src/java</sourceDirectory>
+     <unitTestSourceDirectory>src/test</unitTestSourceDirectory>
+-    <integrationUnitTestSourceDirectory/>
+     <aspectSourceDirectory/>
+     <unitTest>
+       <includes>
