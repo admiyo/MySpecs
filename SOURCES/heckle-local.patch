@@ -1,0 +1,13 @@
+*** heckle.orig	2010-04-01 15:03:04.783419386 -0400
+--- heckle	2010-04-01 15:03:16.662299453 -0400
+***************
+*** 1,4 ****
+! #!/usr/local/bin/ruby
+  
+  $:.unshift File.join(File.dirname(__FILE__), *%w[.. lib])
+  require 'test_unit_heckler'
+--- 1,4 ----
+! #!/usr/bin/ruby
+  
+  $:.unshift File.join(File.dirname(__FILE__), *%w[.. lib])
+  require 'test_unit_heckler'
