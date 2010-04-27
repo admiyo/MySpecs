@@ -39,6 +39,8 @@ classpath=src
 javac -d classes -cp $classpath  `find . -name *.java` 
 javadoc -d javadoc -classpath $classpath  $(for JAVA in `find src/ -name *.java` ; do  dirname $JAVA ; done | sort -u  | sed -e 's!src.!!'  -e 's!/!.!g'  )
 find classes -name *.class | sed -e  's!classes/!!g' -e 's!^! -C classes !'  | xargs jar cf %{name}-%{version}.jar
+find src -name *.properties\* | sed -e  's!src/!!g'   -e 's!^! -C src !'   | xargs jar uf %{name}-%{version}.jar
+
 
 
 %install
