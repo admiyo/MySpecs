@@ -1,0 +1,18 @@
+--- pom.xml.orig	2010-04-26 16:32:17.229007033 -0400
++++ pom.xml	2010-04-26 16:32:21.843006215 -0400
+@@ -65,6 +65,15 @@
+                 </configuration>
+             </plugin>
+         </plugins>
++	<resources>
++	  <resource>
++            <targetPath>org/hibernate/validator/resources</targetPath>
++            <directory>src/java/org/hibernate/validator/resources </directory>
++            <includes>
++              <include>*.properties</include>
++            </includes>
++	  </resource>
++	</resources>
+     </build>
+     <reporting>
+         <plugins>
