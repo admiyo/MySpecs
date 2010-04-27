@@ -1,33 +1,27 @@
 Name:      jakarta-commons-dbcp
-Version:   1.2.1
-Release:        2%{?dist}
-Summary:       Commons DBCP 
+Version:   1.4
+Release:        3%{?dist}
+Summary:       Commons DBCP
 
 Group:         Development/Java
 License:        The Apache Software License, Version 2.0
-URL:            http://jakarta.apache.org/commons/dbcp/
-Source0:        commons-dbcp-%{version}-sources.jar
+URL:            http://jakarta.apache.org/commons/pool/
+Source0:        %{name}-%{version}-src.tar.gz
+Source1:        %{name}-%{version}-build.properties
+
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires: java-devel  
 BuildRequires:  jpackage-utils
 BuildArch: noarch
-BuildRequires: jakarta-commons-collections >= 2.1
-BuildRequires: jakarta-commons-pool >= 1.2
-BuildRequires: jdbc-stdext >= 2.0
+BuildRequires: commons-collections >= 2.1
 BuildRequires: junit >= 3.8.1
-#BuildRequires: xml-apis >= 2.0.2
-#BuildRequires: xerces >= 2.0.2
 Requires:  java >= 1.5
 Requires:  jpackage-utils
 Requires(post):       jpackage-utils
 Requires(postun):     jpackage-utils
-Requires: jakarta-commons-collections >= 2.1
-Requires: jakarta-commons-pool >= 1.2
-Requires: jdbc-stdext >= 2.0
+Requires: commons-collections >= 2.1
 Requires: junit >= 3.8.1
-#Requires: xml-apis >= 2.0.2
-#Requires: xerces >= 2.0.2
 
 %description
 %package javadoc
@@ -40,31 +34,26 @@ Requires:       jpackage-utils
 This package contains the API documentation for %{name}.
 
 %prep
-%setup -cT
-mkdir src javadoc classes
-pushd src
-jar -xf %{SOURCE0}
-popd
+%setup -q -n commons-dbcp-%{version}-src
+cp %{SOURCE1} build.properties
+
 
 %build
-classpath=src:$(build-classpath jakarta-commons-collections jakarta-commons-pool  junit   )
-javac -source 1.4 -d classes -cp $classpath  `find . -name *.java` 
-javadoc -d javadoc -classpath $classpath  $(for JAVA in `find src/ -name *.java` ; do  dirname $JAVA ; done | sort -u  | sed -e 's!src.!!'  -e 's!/!.!g'  )
-find classes -name *.class | sed -e  's!classes/!!g' -e 's!^! -C classes !'  | xargs jar cfm %{name}-%{version}.jar ./src/META-INF/MANIFEST.MF
-
+ant dist
+cp dist/commons-dbcp.jar dist/jakarta-commons-dbcp.jar
 
 %install
 rm -rf $RPM_BUILD_ROOT
 mkdir -p $RPM_BUILD_ROOT
 install -m 755 -d $RPM_BUILD_ROOT%{_javadir}
-install -m 755 %{name}-%{version}.jar $RPM_BUILD_ROOT%{_javadir}
-install -m 755 %{SOURCE0} $RPM_BUILD_ROOT%{_javadir}
+install -m 755 dist/%{name}.jar $RPM_BUILD_ROOT%{_javadir}/%{name}-%{version}.jar
+#install -m 755 %{SOURCE0} $RPM_BUILD_ROOT%{_javadir}
 ln -s %{_javadir}/%{name}-%{version}.jar $RPM_BUILD_ROOT%{_javadir}/%{name}.jar
 install -m 755 -d $RPM_BUILD_ROOT%{_javadocdir}/%{name}
-cp -rp javadoc/*  $RPM_BUILD_ROOT%{_javadocdir}/%{name}
+cp -rp dist/docs/*  $RPM_BUILD_ROOT%{_javadocdir}/%{name}
 
-%add_to_maven_depmap commons-dbcp %{name} %{version} JPP %{name}
-%add_to_maven_depmap commons-dbcp commons-dbcp %{version} JPP %{name}
+%add_to_maven_depmap %{name} %{name} %{version} JPP %{name}
+%add_to_maven_depmap commons-dbcp commons-dbcp %{version} JPP commons-dbcp
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -81,7 +70,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root,-)
 %{_mavendepmapfragdir}
 %{_javadir}/%{name}-%{version}.jar
-%{_javadir}/commons-dbcp-%{sources}.jar
+#%{_javadir}/%{name}-%{version}-src.jar
 %{_javadir}/%{name}.jar
 %doc
 %files javadoc

@@ -12,6 +12,7 @@ BuildRequires: java-devel
 BuildRequires:  jpackage-utils
 BuildRequires:  cglib
 BuildRequires:  objectweb-asm
+BuildRequires: aopalliance
 
 BuildArch: noarch
 Requires:  java >= 1.5

@@ -47,7 +47,7 @@ find classes -name *.class | sed -e  's!classes/!!g' -e 's!^! -C classes !'  | x
 mkdir -p $RPM_BUILD_ROOT
 install -m 755 -d $RPM_BUILD_ROOT%{_javadir}
 install -m 755 %{name}-%{version}.jar $RPM_BUILD_ROOT%{_javadir}
-ln -s %{_javadir}/%{name}-%{version}.jar $RPM_BUILD_ROOT%{_javadir}/%{name}.jar
+#ln -s %{_javadir}/%{name}-%{version}.jar $RPM_BUILD_ROOT%{_javadir}/%{name}.jar
 install -m 755 -d $RPM_BUILD_ROOT%{_javadocdir}/%{name}
 cp -rp javadoc/*  $RPM_BUILD_ROOT%{_javadocdir}/%{name}
 
@@ -68,7 +68,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root,-)
 %{_mavendepmapfragdir}
 %{_javadir}/%{name}-%{version}.jar
-%{_javadir}/%{name}.jar
+#%{_javadir}/%{name}.jar
 %doc
 %files javadoc
 %defattr(-,root,root,-)
