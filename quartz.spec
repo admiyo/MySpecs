@@ -31,11 +31,12 @@ Requires(post):       jpackage-utils
 Requires(postun):     jpackage-utils
 Requires: activation >= 1.1
 Requires: jta >= 1.0.1B
-Requires: jms >= 1.1
+#Requires: jms >= 1.1
 Requires: jakarta-commons-logging >= 1.1
 Requires: jakarta-commons-beanutils >= 1.7.0
 Requires: jakarta-commons-dbcp >= 1.2.2
-Requires: jakarta-commons-digester >= 1.8.1
+Requires: jakarta-commons-digester >= 1.7
+#Requires: jakarta-commons-digester >= 1.8.1
 Requires: jakarta-commons-modeler >= 2.0
 Requires: commons-pool >= 1.3
 Requires: jakarta-commons-validator >= 1.1.4
@@ -61,7 +62,7 @@ jar -xf %{SOURCE0}
 popd
 
 %build
-classpath=src:$(build-classpath glassfish-jaf glassfish-javamail-monolithic jta jms_api servlet_2_3_api ejb_3_0_api  commons-logging commons-beanutils jakarta-commons-dbcp commons-digester commons-modeler jakarta-commons-pool commons-validator log4j junit4  objectweb-asm/asm-all )
+classpath=src:$(build-classpath glassfish-jaf glassfish-javamail-monolithic jta jms servletapi5 ejb_3_0_api  commons-logging commons-beanutils jakarta-commons-dbcp commons-digester commons-modeler jakarta-commons-pool commons-validator log4j junit4  objectweb-asm/asm-all )
 javac -d classes -cp $classpath  `find . -name *.java` 
 javadoc -d javadoc -classpath $classpath  $(for JAVA in `find src/ -name *.java` ; do  dirname $JAVA ; done | sort -u  | sed -e 's!src.!!'  -e 's!/!.!g'  )
 find classes -name *.class | sed -e  's!classes/!!g' -e 's!^! -C classes !'  | xargs jar cfm %{name}-%{version}.jar ./src/META-INF/MANIFEST.MF

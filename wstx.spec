@@ -40,7 +40,7 @@ jar -xf %{SOURCE0}
 
 %build
 
-classpath=$(build-classpath relaxngDatatype msv):src/java 
+classpath=$(build-classpath relaxngDatatype msv-msv)
 javac -d classes -cp $classpath `find src/java -name *.java` 
 javadoc -d javadoc/ -classpath %{_javadir}/relaxngDatatype.jar:%{_javadir}/msv.jar:src/java  $(for JAVA in `find src/java -name *.java` ; do  dirname $JAVA ; done | sort -u  | sed -e 's!src/java.!!'  -e 's!/!.!g'  )
 find classes -name *.class | sed -e  's!classes/!!g' -e 's!^! -C classes !'  | xargs jar cf wstx-3.2.6.jar

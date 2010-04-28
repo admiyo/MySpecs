@@ -15,6 +15,7 @@ BuildRequires:    maven2-plugin-install
 BuildRequires:    maven2-plugin-jar
 BuildRequires:    maven2-plugin-javadoc
 #BuildRequires:    maven2-plugin-release
+BuildRequires:    maven2-plugin-assembly
 BuildRequires:    maven2-plugin-resources
 BuildRequires:    maven2-plugin-surefire
 BuildRequires:    maven-surefire-provider-junit
