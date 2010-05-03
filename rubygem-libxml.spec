@@ -5,8 +5,8 @@
 %define geminstdir %{gemdir}/gems/%{gemname}-%{version}
 
 Summary: Ruby libxml bindings
-Name: rubygem-%{gemname}
-Version: 1.1.3
+Name: rubygem-libxml
+Version: 1.1.4
 Release: 1%{?dist}
 Group: Development/Languages
 License: GPLv2+ or Ruby
@@ -47,5 +47,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Mon May 3 2010 Adam Young  <ayoung@ayoung.boston.devel.redhat.com> - 1.1.3-2
+- Changed RPM name to conform to Fedora standards
+- Ugraded to libxml-ruby 1.1.4
+
 * Sat Apr 17 2010 Adam Young <ayoung@ayoung.boston.devel.redhat.com> - 1.1.3-1
 - Initial package
