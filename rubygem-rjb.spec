@@ -14,7 +14,12 @@ URL: http://rjb.rubyforge.org/
 Source0: http://rubygems.org/gems/%{gemname}-%{version}.gem
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 Requires: rubygems
+Requires:  java >= 1.5
 BuildRequires: rubygems
+BuildRequires: ruby-devel
+BuildRequires: java-devel  
+
+
 Provides: rubygem(%{gemname}) = %{version}
 
 %description
@@ -29,7 +34,7 @@ Interface.
 %install
 rm -rf %{buildroot}
 mkdir -p %{buildroot}%{gemdir}
-gem install --local --install-dir %{buildroot}%{gemdir} \
+JAVA_HOME=/usr/lib/jvm/java gem install --local --install-dir %{buildroot}%{gemdir} \
             --force --rdoc %{SOURCE0}
 
 %clean
@@ -37,6 +42,7 @@ rm -rf %{buildroot}
 
 %files
 %defattr(-, root, root, -)
+/
 %{gemdir}/gems/%{gemname}-%{version}/
 %doc %{gemdir}/doc/%{gemname}-%{version}
 %{gemdir}/cache/%{gemname}-%{version}.gem
