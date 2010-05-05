@@ -16,7 +16,9 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 Requires: rubygems
 BuildRequires: rubygems
 BuildRequires: ruby-devel
-BuildRequires: zlib
+BuildRequires: zlib-devel
+BuildRequires: libxml2
+BuildRequires: libxml2-devel
 
 Provides: rubygem(%{gemname}) = %{version}
 
