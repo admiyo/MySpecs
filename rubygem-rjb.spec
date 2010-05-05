@@ -37,12 +37,30 @@ mkdir -p %{buildroot}%{gemdir}
 JAVA_HOME=/usr/lib/jvm/java gem install --local --install-dir %{buildroot}%{gemdir} \
             --force --rdoc %{SOURCE0}
 
+
+
+pushd %{buildroot}%{gemdir}/gems/%{gemname}-%{version}/ext
+make clean
+sed -e 's!RUBYLIBDIR = .*!RUBYLIBDIR = $(sitearchdir)$(target_prefix)!' \
+    -e 's!RUBYARCHDIR = .*!RUBYARCHDIR = $(sitearchdir)$(target_prefix)!' \
+    < Makefile > Makefile.new
+mv Makefile.new Makefile
+make clean
+popd
+
+/usr/lib/rpm/find-debuginfo.sh
+#for now just delete it.  Eventually, we want a debuginfo rpm
+rm -f %{buildroot}/usr/lib/debug/usr/lib/ruby/gems/1.8/gems/rjb-%{version}/lib/rjbcore.so.debug
+
+rm -rd  %{buildroot}/usr/lib/debug
+
+
+
 %clean
 rm -rf %{buildroot}
 
 %files
 %defattr(-, root, root, -)
-/
 %{gemdir}/gems/%{gemname}-%{version}/
 %doc %{gemdir}/doc/%{gemname}-%{version}
 %{gemdir}/cache/%{gemname}-%{version}.gem
