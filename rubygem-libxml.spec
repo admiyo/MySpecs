@@ -31,27 +31,21 @@ benchmark below.
 
 
 %prep
+%setup -cT
 
 %build
+mkdir -p %{gemdir}
+gem install --local --install-dir .%{gemdir} \
+            --force --rdoc %{SOURCE0}
+
+rm $( find . -name libxml-ruby.so.a )
+
 
 %install
 rm -rf %{buildroot}
 mkdir -p %{buildroot}%{gemdir}
-gem install --local --install-dir %{buildroot}%{gemdir} \
-            --force --rdoc %{SOURCE0}
-pushd %{buildroot}%{gemdir}/gems/%{gemname}-%{version}/ext/libxml
-make clean
-sed -e 's!RUBYLIBDIR = .*!RUBYLIBDIR = $(sitearchdir)$(target_prefix)!' \
-    -e 's!RUBYARCHDIR = .*!RUBYARCHDIR = $(sitearchdir)$(target_prefix)!' \
-    < Makefile > Makefile.new
-mv Makefile.new Makefile
-make clean
-popd
+cp -R  . %{buildroot}
 
-/usr/lib/rpm/find-debuginfo.sh
-#for now just delete it.  Eventually, we want a debuginfo rpm
-rm -f %{buildroot}/usr/lib/debug/usr/lib/ruby/gems/1.8/gems/libxml-ruby-1.1.4/lib/libxml_ruby.so.debug
-rm -rd  %{buildroot}/usr/lib/debug
 
 %clean
 rm -rf %{buildroot}
