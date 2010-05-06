@@ -1,8 +1,8 @@
 # Generated from net-ssh-2.0.21.gem by gem2rpm -*- rpm-spec -*-
-%define ruby_sitelib %(ruby -rrbconfig -e "puts Config::CONFIG['sitelibdir']")
-%define gemdir %(ruby -rubygems -e 'puts Gem::dir' 2>/dev/null)
-%define gemname net-ssh
-%define geminstdir %{gemdir}/gems/%{gemname}-%{version}
+%global ruby_sitelib %(ruby -rrbconfig -e "puts Config::CONFIG['sitelibdir']")
+%global gemdir %(ruby -rubygems -e 'puts Gem::dir' 2>/dev/null)
+%global gemname net-ssh
+%global geminstdir %{gemdir}/gems/%{gemname}-%{version}
 
 Summary: Net::SSH: a pure-Ruby implementation of the SSH2 client protocol
 Name: rubygem-%{gemname}

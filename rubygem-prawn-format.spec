@@ -1,8 +1,8 @@
 # Generated from prawn-format-0.2.3.gem by gem2rpm -*- rpm-spec -*-
-%define ruby_sitelib %(ruby -rrbconfig -e "puts Config::CONFIG['sitelibdir']")
-%define gemdir %(ruby -rubygems -e 'puts Gem::dir' 2>/dev/null)
-%define gemname prawn-format
-%define geminstdir %{gemdir}/gems/%{gemname}-%{version}
+%global ruby_sitelib %(ruby -rrbconfig -e "puts Config::CONFIG['sitelibdir']")
+%global gemdir %(ruby -rubygems -e 'puts Gem::dir' 2>/dev/null)
+%global gemname prawn-format
+%global geminstdir %{gemdir}/gems/%{gemname}-%{version}
 
 Summary: an extension of Prawn that allows inline formatting
 Name: rubygem-%{gemname}

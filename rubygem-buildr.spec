@@ -1,8 +1,8 @@
 # Generated from buildr-1.3.5.gem by gem2rpm -*- rpm-spec -*-
-%define ruby_sitelib %(ruby -rrbconfig -e "puts Config::CONFIG['sitelibdir']")
-%define gemdir %(ruby -rubygems -e 'puts Gem::dir' 2>/dev/null)
-%define gemname buildr
-%define geminstdir %{gemdir}/gems/%{gemname}-%{version}
+%global ruby_sitelib %(ruby -rrbconfig -e "puts Config::CONFIG['sitelibdir']")
+%global gemdir %(ruby -rubygems -e 'puts Gem::dir' 2>/dev/null)
+%global gemname buildr
+%global geminstdir %{gemdir}/gems/%{gemname}-%{version}
 
 Summary: A build system that doesn't suck
 Name: rubygem-%{gemname}

@@ -1,8 +1,8 @@
 # Generated from rr-0.10.11.gem by gem2rpm -*- rpm-spec -*-
-%define ruby_sitelib %(ruby -rrbconfig -e "puts Config::CONFIG['sitelibdir']")
-%define gemdir %(ruby -rubygems -e 'puts Gem::dir' 2>/dev/null)
-%define gemname rr
-%define geminstdir %{gemdir}/gems/%{gemname}-%{version}
+%global ruby_sitelib %(ruby -rrbconfig -e "puts Config::CONFIG['sitelibdir']")
+%global gemdir %(ruby -rubygems -e 'puts Gem::dir' 2>/dev/null)
+%global gemname rr
+%global geminstdir %{gemdir}/gems/%{gemname}-%{version}
 
 Summary: RR (Double Ruby) is a double framework that features a rich selection of double techniques and a terse syntax. http://xunitpatterns.com/Test%20Double.html
 Name: rubygem-%{gemname}

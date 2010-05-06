@@ -28,10 +28,10 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 
-%define section free
-%define namedversion 3.1.0.GA
+%global section free
+%global namedversion 3.1.0.GA
 
-%define reltag  SP1_CP01
+%global reltag  SP1_CP01
 
 Name:           hibernate3-validator
 Version:        3.1.0

@@ -1,8 +1,8 @@
 # Generated from cucumber-0.6.4.gem by gem2rpm -*- rpm-spec -*-
-%define ruby_sitelib %(ruby -rrbconfig -e "puts Config::CONFIG['sitelibdir']")
-%define gemdir %(ruby -rubygems -e 'puts Gem::dir' 2>/dev/null)
-%define gemname cucumber
-%define geminstdir %{gemdir}/gems/%{gemname}-%{version}
+%global ruby_sitelib %(ruby -rrbconfig -e "puts Config::CONFIG['sitelibdir']")
+%global gemdir %(ruby -rubygems -e 'puts Gem::dir' 2>/dev/null)
+%global gemname cucumber
+%global geminstdir %{gemdir}/gems/%{gemname}-%{version}
 
 Summary: Behaviour Driven Development with elegance and joy
 Name: rubygem-%{gemname}

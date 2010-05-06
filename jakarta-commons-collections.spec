@@ -28,19 +28,19 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 
-%define _with_gcj_support 1
-%define _without_maven 1
-%define gcj_support %{?_with_gcj_support:1}%{!?_with_gcj_support:%{?_without_gcj_support:0}%{!?_without_gcj_support:%{?_gcj_support:%{_gcj_support}}%{!?_gcj_support:0}}}
+%global _with_gcj_support 1
+%global _without_maven 1
+%global gcj_support %{?_with_gcj_support:1}%{!?_with_gcj_support:%{?_without_gcj_support:0}%{!?_without_gcj_support:%{?_gcj_support:%{_gcj_support}}%{!?_gcj_support:0}}}
 
 # If you don't want to build with maven, and use straight ant instead,
 # give rpmbuild option '--without maven'
 
-%define with_maven %{!?_without_maven:1}%{?_without_maven:0}
-%define without_maven %{?_without_maven:1}%{!?_without_maven:0}
+%global with_maven %{!?_without_maven:1}%{?_without_maven:0}
+%global without_maven %{?_without_maven:1}%{!?_without_maven:0}
 
-%define base_name	collections
-%define short_name	commons-%{base_name}
-%define section		free
+%global base_name	collections
+%global short_name	commons-%{base_name}
+%global section		free
 
 Name:		jakarta-%{short_name}
 Version:	3.2.1

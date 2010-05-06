@@ -1,8 +1,8 @@
 # Generated from hpricot-0.8.2.gem by gem2rpm -*- rpm-spec -*-
-%define ruby_sitelib %(ruby -rrbconfig -e "puts Config::CONFIG['sitelibdir']")
-%define gemdir %(ruby -rubygems -e 'puts Gem::dir' 2>/dev/null)
-%define gemname hpricot
-%define geminstdir %{gemdir}/gems/%{gemname}-%{version}
+%global ruby_sitelib %(ruby -rrbconfig -e "puts Config::CONFIG['sitelibdir']")
+%global gemdir %(ruby -rubygems -e 'puts Gem::dir' 2>/dev/null)
+%global gemname hpricot
+%global geminstdir %{gemdir}/gems/%{gemname}-%{version}
 
 Summary: a swift, liberal HTML parser with a fantastic library
 Name: rubygem-%{gemname}

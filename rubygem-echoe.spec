@@ -1,8 +1,8 @@
 # Generated from echoe-4.3.gem by gem2rpm -*- rpm-spec -*-
-%define ruby_sitelib %(ruby -rrbconfig -e "puts Config::CONFIG['sitelibdir']")
-%define gemdir %(ruby -rubygems -e 'puts Gem::dir' 2>/dev/null)
-%define gemname echoe
-%define geminstdir %{gemdir}/gems/%{gemname}-%{version}
+%global ruby_sitelib %(ruby -rrbconfig -e "puts Config::CONFIG['sitelibdir']")
+%global gemdir %(ruby -rubygems -e 'puts Gem::dir' 2>/dev/null)
+%global gemname echoe
+%global geminstdir %{gemdir}/gems/%{gemname}-%{version}
 
 Summary: A Rubygems packaging tool that provides Rake tasks for documentation, extension compiling, testing, and deployment
 Name: rubygem-%{gemname}

@@ -1,8 +1,8 @@
 # Generated from httpclient-2.1.5.2.gem by gem2rpm -*- rpm-spec -*-
-%define ruby_sitelib %(ruby -rrbconfig -e "puts Config::CONFIG['sitelibdir']")
-%define gemdir %(ruby -rubygems -e 'puts Gem::dir' 2>/dev/null)
-%define gemname httpclient
-%define geminstdir %{gemdir}/gems/%{gemname}-%{version}
+%global ruby_sitelib %(ruby -rrbconfig -e "puts Config::CONFIG['sitelibdir']")
+%global gemdir %(ruby -rubygems -e 'puts Gem::dir' 2>/dev/null)
+%global gemname httpclient
+%global geminstdir %{gemdir}/gems/%{gemname}-%{version}
 
 Summary: gives something like the functionality of libwww-perl (LWP) in Ruby
 Name: rubygem-%{gemname}

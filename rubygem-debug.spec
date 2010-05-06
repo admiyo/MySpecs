@@ -1,8 +1,8 @@
 # Generated from ruby-debug-0.10.3.gem by gem2rpm -*- rpm-spec -*-
-%define ruby_sitelib %(ruby -rrbconfig -e "puts Config::CONFIG['sitelibdir']")
-%define gemdir %(ruby -rubygems -e 'puts Gem::dir' 2>/dev/null)
-%define gemname ruby-debug
-%define geminstdir %{gemdir}/gems/%{gemname}-%{version}
+%global ruby_sitelib %(ruby -rrbconfig -e "puts Config::CONFIG['sitelibdir']")
+%global gemdir %(ruby -rubygems -e 'puts Gem::dir' 2>/dev/null)
+%global gemname ruby-debug
+%global geminstdir %{gemdir}/gems/%{gemname}-%{version}
 
 Summary: Command line interface (CLI) for ruby-debug-base
 Name: rubygem-%{gemname}

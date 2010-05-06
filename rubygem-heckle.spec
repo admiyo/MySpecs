@@ -1,8 +1,8 @@
 # Generated from heckle-1.4.3.gem by gem2rpm -*- rpm-spec -*-
-%define ruby_sitelib %(ruby -rrbconfig -e "puts Config::CONFIG['sitelibdir']")
-%define gemdir %(ruby -rubygems -e 'puts Gem::dir' 2>/dev/null)
-%define gemname heckle
-%define geminstdir %{gemdir}/gems/%{gemname}-%{version}
+%global ruby_sitelib %(ruby -rrbconfig -e "puts Config::CONFIG['sitelibdir']")
+%global gemdir %(ruby -rubygems -e 'puts Gem::dir' 2>/dev/null)
+%global gemname heckle
+%global geminstdir %{gemdir}/gems/%{gemname}-%{version}
 
 Summary: Heckle is unit test sadism(tm) at it's core
 Name: rubygem-%{gemname}
