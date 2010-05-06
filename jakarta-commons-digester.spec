@@ -1,6 +1,6 @@
 Name:      jakarta-commons-digester
 Version:   1.8.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:       Commons Digester 
 
 Group:         Development/Java
@@ -19,9 +19,8 @@ Requires:  java >= 1.5
 Requires:  jpackage-utils
 Requires(post):       jpackage-utils
 Requires(postun):     jpackage-utils
-Requires: commons-beanutils >= 1.8.0
-Requires: commons-logging >= 1.1.1
-Requires: xml-apis >= 1.0.b2
+Requires: jakarta-commons-beanutils >= 1.8.0
+Requires: jakarta-commons-logging >= 1.1.1
 Requires: junit >= 3.8.1
 
 %description

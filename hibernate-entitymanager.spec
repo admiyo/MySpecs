@@ -1,6 +1,6 @@
 Name:      hibernate-entitymanager
 Version:   3.4.0.GA
-Release:        1%{?dist}
+Release:        4%{?dist}
 Summary:       Hibernate Entitity Manager 
 
 Group:         Development/Java
@@ -24,14 +24,14 @@ Requires:  java >= 1.5
 Requires:  jpackage-utils
 Requires(post):       jpackage-utils
 Requires(postun):     jpackage-utils
-Requires: hibernate3-ejb3-persistence-3.0-api
-Requires: hibernate-commons-annotations >= 3.1.0.GA
-Requires: hibernate3-annotations >= 3.4.0.GA
+Requires: hibernate3-ejb-persistence-3.0-api
+Requires: hibernate-commons-annotations >= 3.1.0
+Requires: hibernate3-annotations >= 3.4.0
 Requires: hibernate3
-Requires: slf4j-api >= 1.4.2
+Requires: slf4j >= 1.4.2
 Requires: dom4j >= 1.6.1
 Requires: jta >= 1.1
-Requires: javassist >= 3.4.GA
+Requires: javassist >= 3.4
 
 %description
 %package javadoc

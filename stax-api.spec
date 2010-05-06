@@ -1,6 +1,6 @@
 Name:      stax-api
 Version:   1.0.1
-Release:        2%{?dist}
+Release:        4%{?dist}
 Summary:       methods for iterative, event-based processing of XML documents. 
 
 Group:         Development/Java
@@ -15,6 +15,9 @@ BuildRequires:  jpackage-utils
 BuildArch: noarch
 Requires:  java >= 1.5
 Requires:  jpackage-utils
+
+Provides:  stax_1_0_api
+
 
 %description
 The StAX API exposes methods for iterative, event-based processing of XML documents. XML documents are treated as a filtered series of events, and infoset states can be stored in a procedural fashion. Moreover, unlike SAX, the StAX API is bidirectional, enabling both reading and writing of XML documents. 
