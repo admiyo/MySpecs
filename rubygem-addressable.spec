@@ -9,10 +9,11 @@ Name: rubygem-%{gemname}
 Version: 2.1.1
 Release: 1%{?dist}
 Group: Development/Languages
-License: GPLv2+ or Ruby
+License: MIT
 URL: http://addressable.rubyforge.org/
 Source0: http://rubygems.org/gems/%{gemname}-%{version}.gem
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+Requires: ruby(abi) = 1.8
 Requires: rubygems
 Requires: rubygem(rake) >= 0.7.3
 Requires: rubygem(rspec) >= 1.0.8
@@ -37,6 +38,12 @@ mkdir -p %{buildroot}%{gemdir}
 gem install --local --install-dir %{buildroot}%{gemdir} \
             --force --rdoc %{SOURCE0}
 
+
+
+mkdir -p %{buildroot}/usr/share/doc/%{gemdir}-%{version}
+mv  %{buildroot}%{geminstdir}/README %{buildroot}/usr/share/doc/%{gemdir}-%{version}
+
+
 %clean
 rm -rf %{buildroot}
 
@@ -44,7 +51,9 @@ rm -rf %{buildroot}
 %defattr(-, root, root, -)
 %{gemdir}/gems/%{gemname}-%{version}/
 %doc %{gemdir}/doc/%{gemname}-%{version}
-%doc %{geminstdir}/README
+%doc /usr/share/doc/%{gemdir}-%{version}
+
+
 %{gemdir}/cache/%{gemname}-%{version}.gem
 %{gemdir}/specifications/%{gemname}-%{version}.gemspec
 

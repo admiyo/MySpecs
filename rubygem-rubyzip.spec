@@ -13,6 +13,7 @@ License: GPLv2+ or Ruby
 URL: http://rubyzip.sourceforge.net/
 Source0: %{gemname}-%{version}.gem
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+Requires: ruby(abi) = 1.8
 Requires: rubygems
 BuildRequires: rubygems
 BuildArch: noarch

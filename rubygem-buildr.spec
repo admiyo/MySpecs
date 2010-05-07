@@ -9,11 +9,12 @@ Name: rubygem-%{gemname}
 Version: 1.3.5
 Release: 2%{?dist}
 Group: Development/Languages
-License: GPLv2+ or Ruby
+License: ASL 2.0
 URL: http://buildr.apache.org/
 Source0: http://rubygems.org/gems/%{gemname}-%{version}.gem
 Patch0:   buildr-buildpath.patch
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+Requires: ruby(abi) = 1.8
 Requires: rubygems
 Requires: rubygem(rake) >= 0.8.7
 Requires: rubygem(builder) >= 2.1.2
@@ -57,6 +58,12 @@ pushd  %{buildroot}%{geminstdir}
 patch -p0 <  %{PATCH0}
 popd
 
+
+mkdir -p %{buildroot}/usr/share/doc/%{gemdir}-%{version}
+for DOC in LICENSE CHANGELOG README.rdoc NOTICE 
+    do mv  %{buildroot}%{geminstdir}/$DOC %{buildroot}/usr/share/doc/%{gemdir}-%{version} 
+done	
+
 %clean
 rm -rf %{buildroot}
 
@@ -65,10 +72,7 @@ rm -rf %{buildroot}
 %{_bindir}/buildr
 %{gemdir}/gems/%{gemname}-%{version}/
 %doc %{gemdir}/doc/%{gemname}-%{version}
-%doc %{geminstdir}/README.rdoc
-%doc %{geminstdir}/CHANGELOG
-%doc %{geminstdir}/LICENSE
-%doc %{geminstdir}/NOTICE
+%doc /usr/share/doc/%{gemdir}-%{version}
 %{gemdir}/cache/%{gemname}-%{version}.gem
 %{gemdir}/specifications/%{gemname}-%{version}.gemspec
 

@@ -4,7 +4,7 @@
 %global gemname rr
 %global geminstdir %{gemdir}/gems/%{gemname}-%{version}
 
-Summary: RR (Double Ruby) is a double framework that features a rich selection of double techniques and a terse syntax. http://xunitpatterns.com/Test%20Double.html
+Summary: a double framework for ruby
 Name: rubygem-%{gemname}
 Version: 0.10.11
 Release: 1%{?dist}
@@ -14,6 +14,7 @@ URL: http://pivotallabs.com
 Source0: http://rubygems.org/gems/%{gemname}-%{version}.gem
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 Requires: rubygems
+Requires: ruby(abi) = 1.8
 BuildRequires: rubygems
 BuildArch: noarch
 Provides: rubygem(%{gemname}) = %{version}

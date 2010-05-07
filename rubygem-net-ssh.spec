@@ -9,10 +9,11 @@ Name: rubygem-%{gemname}
 Version: 2.0.21
 Release: 1%{?dist}
 Group: Development/Languages
-License: GPLv2+ or Ruby
+License: MIT
 URL: http://github.com/net-ssh/net-ssh
 Source0: http://rubygems.org/gems/%{gemname}-%{version}.gem
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+Requires: ruby(abi) = 1.8 
 Requires: rubygems
 BuildRequires: rubygems
 BuildArch: noarch

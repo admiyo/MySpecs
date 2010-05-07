@@ -9,10 +9,11 @@ Name: rubygem-%{gemname}
 Version: 0.7.0
 Release: 1%{?dist}
 Group: Development/Languages
-License: GPLv2+ or Ruby
+License: ASL 2.0
 URL: http://rubyforge.org/projects/antwrap/
 Source0: http://rubygems.org/gems/%{gemname}-%{version}.gem
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+Requires: ruby(abi) = 1.8
 Requires: rubygems
 Requires: rubygem(rjb) >= 1.0.3
 Requires: rubygem(hoe) >= 1.3.0
@@ -44,18 +45,23 @@ mkdir -p %{buildroot}%{gemdir}
 gem install --local --install-dir %{buildroot}%{gemdir} \
             --force --rdoc %{SOURCE0}
 
+mkdir -p %{buildroot}/usr/share/doc/%{gemdir}-%{version}
+mv  %{buildroot}%{geminstdir}/History.txt %{buildroot}/usr/share/doc/%{gemdir}-%{version}
+mv  %{buildroot}%{geminstdir}/Manifest.txt %{buildroot}/usr/share/doc/%{gemdir}-%{version}
+mv  %{buildroot}%{geminstdir}/README.txt %{buildroot}/usr/share/doc/%{gemdir}-%{version}
+
+
 %clean
 rm -rf %{buildroot}
 
 %files
 %defattr(-, root, root, -)
 %{gemdir}/gems/%{gemname}-%{version}/
+%doc /usr/share/doc/%{gemdir}-%{version}
 %doc %{gemdir}/doc/%{gemname}-%{version}
-%doc %{geminstdir}/History.txt
-%doc %{geminstdir}/Manifest.txt
-%doc %{geminstdir}/README.txt
 %{gemdir}/cache/%{gemname}-%{version}.gem
 %{gemdir}/specifications/%{gemname}-%{version}.gemspec
+
 
 
 %changelog

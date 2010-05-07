@@ -13,6 +13,7 @@ License: GPLv2+ or Ruby
 URL: http://wiki.github.com/sandal/prawn
 Source0: http://rubygems.org/gems/%{gemname}-%{version}.gem
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+Requires: ruby(abi) = 1.8
 Requires: rubygems
 Requires: rubygem(prawn-core) >= 0.8.4
 Requires: rubygem(prawn-core) < 0.9

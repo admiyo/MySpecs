@@ -9,12 +9,13 @@ Name: rubygem-%{gemname}
 Version: 1.4.3
 Release: 1%{?dist}
 Group: Development/Languages
-License: GPLv2+ or Ruby
+License: MIT
 URL: http://www.rubyforge.org/projects/seattlerb
 Source0: http://rubygems.org/gems/%{gemname}-%{version}.gem
 Patch0: heckle-local.patch
 
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+Requires: ruby(abi) = 1.8
 Requires: rubygems
 Requires: rubygem(ParseTree) >= 2.0.0
 Requires: rubygem(ruby2ruby) >= 1.1.6
@@ -51,6 +52,12 @@ pushd %{buildroot}%{geminstdir}/bin
 patch -p0 <  %{PATCH0}
 popd
 
+mkdir -p %{buildroot}/usr/share/doc/%{gemdir}-%{version}
+mv  %{buildroot}%{geminstdir}/History.txt %{buildroot}/usr/share/doc/%{gemdir}-%{version}
+mv  %{buildroot}%{geminstdir}/Manifest.txt %{buildroot}/usr/share/doc/%{gemdir}-%{version}
+mv  %{buildroot}%{geminstdir}/README.txt %{buildroot}/usr/share/doc/%{gemdir}-%{version}
+
+
 find %{buildroot}%{geminstdir}/bin -type f | xargs chmod a+x
 
 %clean
@@ -60,10 +67,10 @@ rm -rf %{buildroot}
 %defattr(-, root, root, -)
 %{_bindir}/heckle
 %{gemdir}/gems/%{gemname}-%{version}/
+/usr/share/doc/%{gemdir}-%{version}
 %doc %{gemdir}/doc/%{gemname}-%{version}
-%doc %{geminstdir}/History.txt
-%doc %{geminstdir}/Manifest.txt
-%doc %{geminstdir}/README.txt
+%doc /usr/share/doc/%{gemdir}-%{version}
+
 %{gemdir}/cache/%{gemname}-%{version}.gem
 %{gemdir}/specifications/%{gemname}-%{version}.gemspec
 

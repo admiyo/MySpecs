@@ -9,10 +9,11 @@ Name: rubygem-%{gemname}
 Version: 1.2.0
 Release: 2%{?dist}
 Group: Development/Languages
-License: GPLv2+ or Ruby
+License: GPLv2+
 URL: http://rjb.rubyforge.org/
 Source0: http://rubygems.org/gems/%{gemname}-%{version}.gem
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+Requires: ruby(abi) = 1.8
 Requires: rubygems
 Requires:  java >= 1.5
 BuildRequires: rubygems
@@ -28,19 +29,17 @@ Interface.
 
 
 %prep
-%setup -cT
+%setup -q -c -T
 
 %build
 JAVA_HOME=/usr/lib/jvm/java gem install --local \
-			    --install-dir .%{gemdir} --force --rdoc %{SOURCE0}
-
-
+    --install-dir .%{gemdir} --force --rdoc %{SOURCE0}
 
 %install
 
 rm -rf %{buildroot}
 mkdir -p %{buildroot}%{gemdir}
-cp -R  ./usr %{buildroot}
+cp -R  . %{buildroot}
 
 %clean
 rm -rf %{buildroot}

@@ -22,14 +22,26 @@ a swift, liberal HTML parser with a fantastic library
 
 
 %prep
+%setup -q -c -T
 
 %build
+
+gem install --local --install-dir .%{gemdir} --force --rdoc %{SOURCE0}
+
 
 %install
 rm -rf %{buildroot}
 mkdir -p %{buildroot}%{gemdir}
-gem install --local --install-dir %{buildroot}%{gemdir} \
-            --force --rdoc %{SOURCE0}
+cp -R  . %{buildroot}
+
+
+mkdir -p %{buildroot}/usr/share/doc/%{gemdir}-%{version}
+for DOC in COPYING CHANGELOG README
+do 
+   mv  %{buildroot}%{geminstdir}/$DOC \
+       %{buildroot}/usr/share/doc/%{gemdir}-%{version} 
+done	
+
 
 %clean
 rm -rf %{buildroot}
@@ -38,9 +50,7 @@ rm -rf %{buildroot}
 %defattr(-, root, root, -)
 %{gemdir}/gems/%{gemname}-%{version}/
 %doc %{gemdir}/doc/%{gemname}-%{version}
-%doc %{geminstdir}/README
-%doc %{geminstdir}/CHANGELOG
-%doc %{geminstdir}/COPYING
+%doc /usr/share/doc/%{gemdir}-%{version}
 %{gemdir}/cache/%{gemname}-%{version}.gem
 %{gemdir}/specifications/%{gemname}-%{version}.gemspec
 

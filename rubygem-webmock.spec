@@ -9,10 +9,11 @@ Name: rubygem-%{gemname}
 Version: 0.9.1
 Release: 1%{?dist}
 Group: Development/Languages
-License: GPLv2+ or Ruby
+License: GPLv2+
 URL: http://github.com/bblimke/webmock
 Source0: http://rubygems.org/gems/%{gemname}-%{version}.gem
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+Requires: ruby(abi) = 1.8
 Requires: rubygems
 Requires: rubygem(addressable) >= 2.1.1
 Requires: rubygem(rspec) >= 1.2.9

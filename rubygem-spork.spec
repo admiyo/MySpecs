@@ -9,10 +9,11 @@ Name: rubygem-%{gemname}
 Version: 0.8.2
 Release: 1%{?dist}
 Group: Development/Languages
-License: GPLv2+ or Ruby
+License: MIT
 URL: http://github.com/timcharper/spork
 Source0: http://rubygems.org/gems/%{gemname}-%{version}.gem
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+Requires: ruby(abi) = 1.8
 Requires: rubygems
 BuildRequires: rubygems
 Provides: rubygem(%{gemname}) = %{version}
@@ -22,14 +23,18 @@ A forking Drb spec server
 
 
 %prep
+%setup -q -c -T
 
 %build
+gem install --local --install-dir .%{gemdir}\
+            --force --rdoc %{SOURCE0}
+
 
 %install
 rm -rf %{buildroot}
 mkdir -p %{buildroot}%{gemdir}
-gem install --local --install-dir %{buildroot}%{gemdir} \
-            --force --rdoc %{SOURCE0}
+cp -R  . %{buildroot}
+
 mkdir -p %{buildroot}/%{_bindir}
 mv %{buildroot}%{gemdir}/bin/* %{buildroot}/%{_bindir}
 rmdir %{buildroot}%{gemdir}/bin
