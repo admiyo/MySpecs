@@ -1,0 +1,79 @@
+Index: spec/spec_helpers.rb
+===================================================================
+--- spec/spec_helpers.rb	(revision 917051)
++++ spec/spec_helpers.rb	(revision 917054)
+@@ -22,8 +22,12 @@
+ 
+   # For testing we use the gem requirements specified on the buildr.gemspec
+   spec = Gem::Specification.load(File.expand_path('../buildr.gemspec', File.dirname(__FILE__)))
+-  spec.dependencies.each { |dep| gem dep.name, dep.version_requirements.to_s }
+-
++  if (spec.respond_to? :requirement)
++    spec.dependencies.each { |dep| gem dep.name, dep.requirement.to_s }
++  else
++    # Dependency.version_requirements deprecated in rubygems 1.3.6
++    spec.dependencies.each { |dep| gem dep.name, dep.version_requirements.to_s }
++  end
+   # Make sure to load from these paths first, we don't want to load any
+   # code from Gem library.
+   $LOAD_PATH.unshift File.expand_path('../lib', File.dirname(__FILE__)),
+Index: lib/buildr/packaging/version_requirement.rb
+===================================================================
+--- lib/buildr/packaging/version_requirement.rb	(revision 917051)
++++ lib/buildr/packaging/version_requirement.rb	(revision 917054)
+@@ -14,6 +14,22 @@
+ # the License.
+ 
+ 
++# Rubygems 1.3.6 removed the 'version' accessor so monkey-patch it back to
++# circumvent version validation.  This is needed because Gem::Version doesn't
++# accept version specs with dashes.
++unless Gem::Version.new(0).respond_to?(:version=)
++  class Gem::Version
++    def version=(version)
++      @version = version.to_s
++      @version.strip!
++
++      # re-prime @segments
++      @segments = nil
++      segments
++    end
++  end
++end
++
+ module Buildr
+  
+   #
+Index: rakelib/setup.rake
+===================================================================
+--- rakelib/setup.rake	(revision 917051)
++++ rakelib/setup.rake	(revision 917054)
+@@ -35,7 +35,14 @@
+     args = []
+     args << 'sudo' << 'env' << "JAVA_HOME=#{ENV['JAVA_HOME']}" if sudo_needed? and RAKE_SUDO
+     args << rb_bin << '-S' << 'gem' << 'install' << name
+-    args << '--version' << dep.version_requirements.to_s
++
++    if (spec.respond_to? :requirement)
++      args << '--version' << dep.requirement.to_s
++    else
++      # Dependency.version_requirements deprecated in rubygems 1.3.6
++      args << '--version' << dep.version_requirements.to_s
++    end
++
+     args << '--source' << options[:source] if options[:source]
+     args << '--source' << 'http://gems.rubyforge.org'
+     args << '--install-dir' << ENV['GEM_HOME'] if ENV['GEM_HOME']
+@@ -49,6 +56,11 @@
+ task :setup do
+   missing = spec.dependencies.select { |dep| Gem::SourceIndex.from_installed_gems.search(dep).empty? }
+   missing.each do |dep|
+-    install_gem dep.name, :version=>dep.version_requirements
++    if (spec.respond_to? :requirement)
++      install_gem dep.name, :version=>dep.requirement
++    else
++      # Dependency.version_requirements deprecated in rubygems 1.3.6
++      install_gem dep.name, :version=>dep.version_requirements
++    end
+   end
+ end
