@@ -1,4 +1,3 @@
-# Generated from buildr-1.3.5.gem by gem2rpm -*- rpm-spec -*-
 %global ruby_sitelib %(ruby -rrbconfig -e "puts Config::CONFIG['sitelibdir']")
 %global gemdir %(ruby -rubygems -e 'puts Gem::dir' 2>/dev/null)
 %global gemname buildr
@@ -7,13 +6,13 @@
 Summary: A build system that doesn't suck
 Name: rubygem-%{gemname}
 Version: 1.3.5
-Release: 2%{?dist}
+Release: 4%{?dist}
 Group: Development/Languages
 License: ASL 2.0
 URL: http://buildr.apache.org/
 Source0: http://rubygems.org/gems/%{gemname}-%{version}.gem
 Patch0:   buildr-buildpath.patch
-BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+Patch1:   buildr-fixversions.patch
 Requires: ruby(abi) = 1.8
 Requires: rubygems
 Requires: rubygem(rake) >= 0.8.7
@@ -42,20 +41,28 @@ for those one-off tasks, with a language that's a joy to use.
 
 
 %prep
+%setup -q -c -T
 
 %build
+JAVA_HOME=/usr/lib/jvm/java gem install --local \
+    --install-dir .%{gemdir} --force --rdoc %{SOURCE0}
+
+echo $PWD
+pushd ./%{geminstdir}
+patch -p0 <  %{PATCH0}
+patch -p0 <  %{PATCH1}
+popd 
 
 %install
-rm -rf %{buildroot}
-mkdir -p %{buildroot}%{gemdir}
-gem install --local --install-dir %{buildroot}%{gemdir} \
-            --force --rdoc %{SOURCE0}
+
 mkdir -p %{buildroot}/%{_bindir}
+cp -R  . %{buildroot}
 mv %{buildroot}%{gemdir}/bin/* %{buildroot}/%{_bindir}
 rmdir %{buildroot}%{gemdir}/bin
 find %{buildroot}%{geminstdir}/bin -type f | xargs chmod a+x
 pushd  %{buildroot}%{geminstdir}
-patch -p0 <  %{PATCH0}
+#patch -p0 <  %{PATCH0}
+#patch -p0 <  %{PATCH1}
 popd
 
 
@@ -78,5 +85,14 @@ rm -rf %{buildroot}
 
 
 %changelog
-* Thu Apr 01 2010 Adam Young <ayoung@ayoung.boston.devel.redhat.com> - 1.3.5-1
+* Mon May 10 2010 Adam Young <ayoung@redhat.com> 
+- Added a patch to Fix version issues introduced by ruby gems 1.3.6
+
+* Fri May 07 2010 Adam Young <ayoung@redhat.com> 
+- Added in a patch to allow us extend the build wrt maven repository.
+- Changed %define to %global
+- Moved doc files out of the main tree.
+- Removed buildroot boilerplate that now is a default part of rpmbuild
+
+* Thu Apr 01 2010 Adam Young <ayoung@redhat.com> - 1.3.5-1
 - Initial package
