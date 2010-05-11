@@ -7,9 +7,9 @@
 Summary: rubyzip is a ruby module for reading and writing zip files
 Name: rubygem-%{gemname}
 Version: 0.9.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Group: Development/Languages
-License: GPLv2+ or Ruby
+License: Ruby
 URL: http://rubyzip.sourceforge.net/
 Source0: %{gemname}-%{version}.gem
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -45,5 +45,11 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Tue May 11 2010 Adam Young <ayoung@ayoung.boston.devel.redhat.com> - 0.9.1-2
+- Fixed License
+- Added ABI Dependency
+- changed define to global
+
+
 * Tue Apr 06 2010 Adam Young <ayoung@ayoung.boston.devel.redhat.com> - 0.9.1-1
 - Initial package
