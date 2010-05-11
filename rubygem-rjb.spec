@@ -53,5 +53,10 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Tue May 11 2010 Adam Young <ayoung@ayoung.boston.devel.redhat.com> - 1.2.0-2
+- Package now doe s the gem install in the build stage, as that causes all of the C based RPM magic to work, including the generation of the debuginfo package.
+- Changed define to global
+- added dependencies needed to build cleanly in a mock environment
+
 * Wed Mar 31 2010 Adam Young <ayoung@ayoung.boston.devel.redhat.com> - 1.2.0-1
 - Initial package
