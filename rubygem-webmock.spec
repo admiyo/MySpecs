@@ -7,9 +7,9 @@
 Summary: Library for stubbing HTTP requests in Ruby
 Name: rubygem-%{gemname}
 Version: 0.9.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Group: Development/Languages
-License: GPLv2+
+License: MIT
 URL: http://github.com/bblimke/webmock
 Source0: http://rubygems.org/gems/%{gemname}-%{version}.gem
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -37,6 +37,13 @@ mkdir -p %{buildroot}%{gemdir}
 gem install --local --install-dir %{buildroot}%{gemdir} \
             --force --rdoc %{SOURCE0}
 
+mkdir -p %{buildroot}/usr/share/doc/%{gemdir}-%{version}
+for DOC in LICENSE README.md
+    do mv  %{buildroot}%{geminstdir}/$DOC %{buildroot}/usr/share/doc/%{gemdir}-%{version} 
+done	
+
+
+
 %clean
 rm -rf %{buildroot}
 
@@ -44,12 +51,17 @@ rm -rf %{buildroot}
 %defattr(-, root, root, -)
 %{gemdir}/gems/%{gemname}-%{version}/
 %doc %{gemdir}/doc/%{gemname}-%{version}
-%doc %{geminstdir}/LICENSE
-%doc %{geminstdir}/README.md
+%doc /usr/share/doc/%{gemdir}-%{version}
 %{gemdir}/cache/%{gemname}-%{version}.gem
 %{gemdir}/specifications/%{gemname}-%{version}.gemspec
 
 
 %changelog
+* Tue May 11 2010 Adam Young <ayoung@ayoung.boston.devel.redhat.com> - 0.9.1-2
+- Corrected license
+- removed duplicate files entries
+- shortened summary
+- added ABI dependency
+
 * Wed Mar 31 2010 Adam Young <ayoung@ayoung.boston.devel.redhat.com> - 0.9.1-1
 - Initial package
