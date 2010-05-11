@@ -40,6 +40,13 @@ mv %{buildroot}%{gemdir}/bin/* %{buildroot}/%{_bindir}
 rmdir %{buildroot}%{gemdir}/bin
 find %{buildroot}%{geminstdir}/bin -type f | xargs chmod a+x
 
+
+mkdir -p %{buildroot}/usr/share/doc/%{gemdir}-%{version}
+for DOC in MIT-LICENSE README.rdoc 
+    do mv  %{buildroot}%{geminstdir}/$DOC %{buildroot}/usr/share/doc/%{gemdir}-%{version} 
+done	
+
+
 %clean
 rm -rf %{buildroot}
 
@@ -48,12 +55,17 @@ rm -rf %{buildroot}
 %{_bindir}/spork
 %{gemdir}/gems/%{gemname}-%{version}/
 %doc %{gemdir}/doc/%{gemname}-%{version}
-%doc %{geminstdir}/MIT-LICENSE
-%doc %{geminstdir}/README.rdoc
+%doc /usr/share/doc/%{gemdir}-%{version}
 %{gemdir}/cache/%{gemname}-%{version}.gem
 %{gemdir}/specifications/%{gemname}-%{version}.gemspec
 
 
 %changelog
+* Tue May 11 2010 Adam Young <ayoung@ayoung.boston.devel.redhat.com> - 0.8.2-2
+- Changed define to global
+- Removed duplication of files
+- Corrected License
+- Added Ruby ABI dependency
+
 * Wed Mar 31 2010 Adam Young <ayoung@ayoung.boston.devel.redhat.com> - 0.8.2-1
 - Initial package
