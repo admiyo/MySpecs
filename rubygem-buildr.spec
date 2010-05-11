@@ -60,11 +60,6 @@ cp -R  . %{buildroot}
 mv %{buildroot}%{gemdir}/bin/* %{buildroot}/%{_bindir}
 rmdir %{buildroot}%{gemdir}/bin
 find %{buildroot}%{geminstdir}/bin -type f | xargs chmod a+x
-pushd  %{buildroot}%{geminstdir}
-#patch -p0 <  %{PATCH0}
-#patch -p0 <  %{PATCH1}
-popd
-
 
 mkdir -p %{buildroot}/usr/share/doc/%{gemdir}-%{version}
 for DOC in LICENSE CHANGELOG README.rdoc NOTICE 
