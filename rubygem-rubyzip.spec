@@ -1,5 +1,4 @@
 # Generated from rubyzip-0.9.1.gem by gem2rpm -*- rpm-spec -*-
-#%global ruby_sitelib %(ruby -rrbconfig -e "puts Config::CONFIG['sitelibdir']")
 %global gemdir %(ruby -rubygems -e 'puts Gem::dir' 2>/dev/null)
 %global gemname rubyzip
 %global geminstdir %{gemdir}/gems/%{gemname}-%{version}
@@ -87,12 +86,10 @@ rm -rf %{buildroot}
 - Split documentation out into separate rpm
 - Fixed rpmlint errors
 
-
 * Tue May 11 2010 Adam Young <ayoung@redhat.com> - 0.9.1-2
 - Fixed License
 - Added ABI Dependency
 - changed define to global
-
 
 * Tue Apr 06 2010 Adam Young <ayoung@redhat.com> - 0.9.1-1
 - Initial package
