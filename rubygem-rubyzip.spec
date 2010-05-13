@@ -48,8 +48,6 @@ pushd %{buildroot}
 patch -p0 < %{PATCH0}
 popd
 
-
-#chmod 755 %{buildroot}%{geminstdir}/lib/zip/*
 chmod 755 %{buildroot}%{geminstdir}/install.rb
 
 for SCRIPT in example_filesystem gtkRubyzip example write_simple qtzip zipfind
@@ -93,6 +91,10 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Thu May 13 2010 Adam Young <ayoung@redhat.com> - 0.9.4-2
+- Upgraded to 0.9.4, with a patch to make buildr run
+
+
 * Tue May 11 2010 Adam Young <ayoung@redhat.com> - 0.9.1-2
 - Split documentation out into separate rpm
 - Fixed rpmlint errors
