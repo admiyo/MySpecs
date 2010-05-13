@@ -48,22 +48,28 @@ pushd %{buildroot}
 patch -p0 < %{PATCH0}
 popd
 
-#rm -rd %{buildroot}%{geminstdir}/lib/download_quizzes.rb
-#rm -rd %{buildroot}%{geminstdir}/lib/quiz1
 
-chmod 755 %{buildroot}%{geminstdir}/samples/*
+#chmod 755 %{buildroot}%{geminstdir}/lib/zip/*
 chmod 755 %{buildroot}%{geminstdir}/install.rb
 
+for SCRIPT in example_filesystem gtkRubyzip example write_simple qtzip zipfind
+do
+	chmod 755  %{buildroot}%{geminstdir}/samples/$SCRIPT.rb
+done
+
+for RB in stdrubyext zip tempfile_bugfixed ioextras zipfilesystem ziprequire
+do
+	chmod 644  %{buildroot}%{geminstdir}/lib/zip/$RB.rb
+done
+
+chmod 644  %{buildroot}%{geminstdir}/Rakefile
 
 # These aren't executables
 sed -i -e '/^#!\/usr\/bin\/env ruby/d' \
   %{buildroot}%{geminstdir}/Rakefile 
 
-
 # CRLF is sprinkled throughout the files
 find %{buildroot}%{geminstdir} -type f -print0 | xargs -0 -n1 sed -i 's/\r//'
-
-
 
 %clean
 rm -rf %{buildroot}
