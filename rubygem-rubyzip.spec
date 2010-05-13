@@ -5,12 +5,13 @@
 
 Summary: A ruby module for reading and writing zip files
 Name: rubygem-%{gemname}
-Version: 0.9.1
-Release: 3%{?dist}
+Version: 0.9.4
+Release: 2%{?dist}
 Group: Development/Languages
 License: GPLv2+ or Ruby
 URL: http://rubyzip.sourceforge.net/
 Source0: Source0: http://gems.rubyforge.org/gems/%{gemname}-%{version}.gem
+Patch0: rubyzip-commentsize.patch
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 Requires: ruby(abi) = 1.8
 Requires: rubygems
@@ -43,8 +44,12 @@ mkdir -p %{buildroot}%{gemdir}
 gem install --local --install-dir %{buildroot}%{gemdir} \
             --force --rdoc %{SOURCE0}
 
-rm -rd %{buildroot}%{geminstdir}/lib/download_quizzes.rb
-rm -rd %{buildroot}%{geminstdir}/lib/quiz1
+pushd %{buildroot}
+patch -p0 < %{PATCH0}
+popd
+
+#rm -rd %{buildroot}%{geminstdir}/lib/download_quizzes.rb
+#rm -rd %{buildroot}%{geminstdir}/lib/quiz1
 
 chmod 755 %{buildroot}%{geminstdir}/samples/*
 chmod 755 %{buildroot}%{geminstdir}/install.rb

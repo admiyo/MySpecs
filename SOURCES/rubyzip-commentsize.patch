@@ -1,0 +1,11 @@
+--- ./usr/lib/ruby/gems/1.8/gems/rubyzip-0.9.4/lib/zip/zip.rb.orig	2010-05-13 12:41:47.291512272 -0400
++++ ./usr/lib/ruby/gems/1.8/gems/rubyzip-0.9.4/lib/zip/zip.rb	2010-05-13 12:42:00.519514110 -0400
+@@ -729,7 +729,7 @@
+ 	@size                             ,
+ 	@name  ?  @name.length  : 0       ,
+ 	@extra ? @extra.c_dir_length : 0  ,
+-	@comment ? comment.length : 0     ,
++	@comment ? comment.size : 0     ,
+ 	0                                 , # disk number start
+ 	@internalFileAttributes           , # file type (binary=0, text=1)
+ 	@externalFileAttributes           , # native filesystem attributes
