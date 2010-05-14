@@ -1,0 +1,26 @@
+--- ./usr/lib/ruby/gems/1.8/gems/buildr-1.3.5/lib/buildr/packaging/ziptask.rb.orig	2010-05-11 09:37:21.612923006 -0400
++++ ./usr/lib/ruby/gems/1.8/gems/buildr-1.3.5/lib/buildr/packaging/ziptask.rb	2010-05-14 16:03:59.726029047 -0400
+@@ -61,7 +61,7 @@
+         mkpath = lambda do |dir|
+           unless dir == '.' || seen[dir]
+             mkpath.call File.dirname(dir)
+-            zip.put_next_entry(dir + '/', compression_level)
++            zip.put_next_entry(:entrylevel => dir + '/', :level=> compression_level)
+             seen[dir] = true
+           end
+         end
+@@ -69,12 +69,12 @@
+         file_map.each do |path, content|
+           mkpath.call File.dirname(path)
+           if content.respond_to?(:call)
+-            zip.put_next_entry(path, compression_level)
++            zip.put_next_entry(:entrylevel=>path,:level=> compression_level)
+             content.call zip
+           elsif content.nil? || File.directory?(content.to_s)
+             mkpath.call path
+           else
+-            entry = zip.put_next_entry(path, compression_level)
++            entry = zip.put_next_entry(:entrylevel=>path, :level => compression_level)
+             File.open content.to_s, 'rb' do |is|
+               entry.unix_perms = is.stat.mode & 07777
+               while data = is.read(4096)

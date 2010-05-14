@@ -6,13 +6,14 @@
 Summary: A build system that doesn't suck
 Name: rubygem-%{gemname}
 Version: 1.3.5
-Release: 4%{?dist}
+Release: 5%{?dist}
 Group: Development/Languages
 License: ASL 2.0
 URL: http://buildr.apache.org/
 Source0: http://rubygems.org/gems/%{gemname}-%{version}.gem
 Patch0:   buildr-buildpath.patch
 Patch1:   buildr-fixversions.patch
+Patch2:   buildr-ziptask.patch
 Requires: ruby(abi) = 1.8
 Requires: rubygems
 Requires: rubygem(rake) >= 0.8.7
@@ -47,11 +48,13 @@ for those one-off tasks, with a language that's a joy to use.
 JAVA_HOME=/usr/lib/jvm/java gem install --local \
     --install-dir .%{gemdir} --force --rdoc %{SOURCE0}
 
-echo $PWD
 pushd ./%{geminstdir}
 patch -p0 <  %{PATCH0}
 patch -p0 <  %{PATCH1}
 popd 
+
+patch -p0 <  %{PATCH2}
+
 
 %install
 
@@ -80,6 +83,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Fri May 14 2010 Adam Young <ayoung@redhat.com> 
+- Added a patch to ziptask to use named parameters, keeping it from sending the wrong datatype to rubyzip
+
 * Mon May 10 2010 Adam Young <ayoung@redhat.com> 
 - Added a patch to Fix version issues introduced by ruby gems 1.3.6
 
