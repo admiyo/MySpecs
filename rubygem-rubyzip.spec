@@ -62,6 +62,13 @@ sed -i -e '/^#!\/usr\/bin\/env ruby/d' \
 # CRLF is sprinkled throughout the files
 find %{buildroot}%{geminstdir} -type f -print0 | xargs -0 -n1 sed -i 's/\r//'
 
+
+%check
+#pushd %{buildroot}%{gemdir}/gems/%{gemname}-%{version}/
+#rake test
+#popd
+
+
 %clean
 rm -rf %{buildroot}
 
