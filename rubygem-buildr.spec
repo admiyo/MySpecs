@@ -6,7 +6,7 @@
 Summary: A build system that doesn't suck
 Name: rubygem-%{gemname}
 Version: 1.3.5
-Release: 5%{?dist}
+Release: 6%{?dist}
 Group: Development/Languages
 License: ASL 2.0
 URL: http://buildr.apache.org/
@@ -68,6 +68,71 @@ mkdir -p %{buildroot}/usr/share/doc/%{gemdir}-%{version}
 for DOC in LICENSE CHANGELOG README.rdoc NOTICE 
     do mv  %{buildroot}%{geminstdir}/$DOC %{buildroot}/usr/share/doc/%{gemdir}-%{version} 
 done	
+
+#for SCRIPT in example_filesystem gtkRubyzip example write_simple qtzip zipfind
+#do
+#	chmod 755  %{buildroot}%{geminstdir}/samples/$SCRIPT.rb
+#done
+
+
+find  %{buildroot}%{geminstdir} -name \*.rej | xargs rm
+find  %{buildroot}%{geminstdir} -name \*.orig | xargs rm
+
+
+for RB in \
+java/version_requirement \
+java/jruby \
+java/pom \
+java/deprecated \
+core/help \
+core/progressbar \
+packaging/tar \
+java \
+ide \
+ide/idea \
+packaging/version_requirement \
+packaging \
+groovy/compiler \
+packaging/artifact_search
+do
+	chmod 644  %{buildroot}%{geminstdir}/lib/buildr/$RB.rb
+done
+
+for RB in \
+java/version_requirement \
+java/jruby \
+java/pom \
+java/deprecated \
+core/help \
+core/progressbar \
+packaging/tar \
+java \
+ide \
+ide/idea \
+packaging/version_requirement \
+packaging \
+groovy/compiler \
+packaging/artifact_search
+do
+	chmod 644  %{buildroot}%{geminstdir}/lib/buildr/$RB.rb
+done
+
+for OTHER in \
+ide/idea.ipr.template ide/idea7x.ipr.template java/jtestr_runner.rb.erb
+do 
+	chmod 644  %{buildroot}%{geminstdir}/lib/buildr/$OTHER
+done
+
+
+
+chmod 644  %{buildroot}%{geminstdir}/Rakefile
+
+# These aren't executables
+#sed -i -e '/^#!\/usr\/bin\/env ruby/d' \
+#  %{buildroot}%{geminstdir}/Rakefile 
+
+# CRLF is sprinkled throughout the files
+find %{buildroot}%{geminstdir} -type f -print0 | xargs -0 -n1 sed -i 's/\r//'
 
 %clean
 rm -rf %{buildroot}
