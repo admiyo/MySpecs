@@ -6,7 +6,7 @@
 Summary: A ruby module for reading and writing zip files
 Name: rubygem-%{gemname}
 Version: 0.9.4
-Release: 2%{?dist}
+Release: 3%{?dist}
 Group: Development/Languages
 License: GPLv2+ or Ruby
 URL: http://rubyzip.sourceforge.net/
@@ -60,13 +60,15 @@ sed -i -e '/^#!\/usr\/bin\/env ruby/d' \
   %{buildroot}%{geminstdir}/Rakefile 
 
 # CRLF is sprinkled throughout the files
-find %{buildroot}%{geminstdir} -type f -print0 | xargs -0 -n1 sed -i 's/\r//'
+#find %{buildroot}%{geminstdir} -type f -print0 | xargs -0 -n1 sed -i 's/\r//'
+sed -i 's/\r//'  %{buildroot}%{geminstdir}/samples/write_simple.rb
+
 
 
 %check
-#pushd %{buildroot}%{gemdir}/gems/%{gemname}-%{version}/
-#rake test
-#popd
+pushd %{buildroot}%{gemdir}/gems/%{gemname}-%{version}/
+rake test
+popd
 
 
 %clean
