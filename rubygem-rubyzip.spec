@@ -59,8 +59,7 @@ chmod 644  %{buildroot}%{geminstdir}/Rakefile
 sed -i -e '/^#!\/usr\/bin\/env ruby/d' \
   %{buildroot}%{geminstdir}/Rakefile 
 
-# CRLF is sprinkled throughout the files
-#find %{buildroot}%{geminstdir} -type f -print0 | xargs -0 -n1 sed -i 's/\r//'
+# Remove CRLF from file
 sed -i 's/\r//'  %{buildroot}%{geminstdir}/samples/write_simple.rb
 
 
@@ -93,6 +92,10 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Tue May 18 2010 Adam Young <ayoung@redhat.com> - 0.9.4-3
+- Enabled tests, 
+- Removed the blanket cr/lf replace thyat was breaking thes test
+
 * Thu May 13 2010 Adam Young <ayoung@redhat.com> - 0.9.4-2
 - Upgraded to 0.9.4, with a patch to make buildr run
 
